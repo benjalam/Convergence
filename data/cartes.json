@@ -1,0 +1,1252 @@
+[
+  {
+    "id": 1,
+    "regle": "Quelque chose qui brille",
+    "mots": ["Talent", "Espoir", "Regard", "Diamant", "Étoile", "Miroir", "Or", "Luciole"]
+  },
+  {
+    "id": 2,
+    "regle": "Quelque chose qui coule",
+    "mots": ["Temps", "Bronze", "Larmes", "Source", "Sueur", "Robinet", "Rivière", "Cascade"]
+  },
+  {
+    "id": 3,
+    "regle": "Quelque chose qui pique",
+    "mots": ["Remarque", "Jalousie", "Ortie", "Oursin", "Moustique", "Guêpe", "Piment", "Cactus"]
+  },
+  {
+    "id": 4,
+    "regle": "Quelque chose qui vole",
+    "mots": ["Temps", "Argent", "Plume", "Cerf-volant", "Avion", "Oiseau", "Mouche", "Vent"]
+  },
+  {
+    "id": 5,
+    "regle": "Quelque chose qui brûle",
+    "mots": ["Passion", "Désir", "Piment", "Fièvre", "Soleil", "Allumette", "Flamme", "Feu"]
+  },
+  {
+    "id": 6,
+    "regle": "Quelque chose qui tombe",
+    "mots": ["Nuit", "Rideau", "Verdict", "Amoureux", "Neige", "Feuilles", "Pluie", "Cascade"]
+  },
+  {
+    "id": 7,
+    "regle": "Quelque chose qui tourne",
+    "mots": ["Chance", "Tête", "Vent", "Disque", "Planète", "Moulin", "Roue", "Toupie"]
+  },
+  {
+    "id": 8,
+    "regle": "Quelque chose qui se cache",
+    "mots": ["Vérité", "Secret", "Espoir", "Visage", "Lune", "Trésor", "Fantôme", "Caméléon"]
+  },
+  {
+    "id": 9,
+    "regle": "Quelque chose qui s'étire",
+    "mots": ["Planning", "Patience", "Yoga", "Jambes", "Élastique", "Fromage", "Chewing-gum", "Slime"]
+  },
+  {
+    "id": 10,
+    "regle": "Quelque chose qui coupe",
+    "mots": ["Parole", "Vent", "Regard", "Froid", "Ciseaux", "Rasoir", "Hache", "Couteau"]
+  },
+  {
+    "id": 11,
+    "regle": "Quelque chose qui se mange",
+    "mots": ["Pain", "Vie", "Parole", "Fruit", "Pizza", "Gâteau", "Bonbon", "Nourriture"]
+  },
+  {
+    "id": 12,
+    "regle": "Quelque chose qui fond",
+    "mots": ["Budget", "Glace (miroir)", "Plomb", "Beurre", "Fromage", "Bougie", "Neige", "Glaçon"]
+  },
+  {
+    "id": 13,
+    "regle": "Quelque chose qui se gonfle",
+    "mots": ["Orgueil", "Voile", "Budget", "Joues", "Pneu", "Matelas", "Baudruche", "Ballon"]
+  },
+  {
+    "id": 14,
+    "regle": "Quelque chose qui se plie",
+    "mots": ["Volonté", "Genou", "Carte", "Bagage", "Parapluie", "Serviette", "Feuille", "Papier"]
+  },
+  {
+    "id": 15,
+    "regle": "Quelque chose qui vibre",
+    "mots": ["Voix", "Corde", "Air", "Musique", "Tonnerre", "Tambour", "Smartphone", "Téléphone"]
+  },
+  {
+    "id": 16,
+    "regle": "Quelque chose qui s'allume",
+    "mots": ["Regard", "Idée", "Passion", "Écran", "Moteur", "Bougie", "Lampe", "Feu"]
+  },
+  {
+    "id": 17,
+    "regle": "Quelque chose qui se perd",
+    "mots": ["Temps", "Mémoire", "Honneur", "Patience", "Nord", "Clés", "Chemin", "Objet"]
+  },
+  {
+    "id": 18,
+    "regle": "Quelque chose qui se donne",
+    "mots": ["Vie", "Parole", "Avis", "Heure", "Exemple", "Sang", "Cadeau", "Présent"]
+  },
+  {
+    "id": 19,
+    "regle": "Quelque chose qui protège",
+    "mots": ["Anonymat", "Loi", "Toit", "Peau", "Casque", "Bouclier", "Parapluie", "Armure"]
+  },
+  {
+    "id": 20,
+    "regle": "Quelque chose qui gratte",
+    "mots": ["Remords", "Curiosité", "Étiquette", "Pull", "Barbe", "Ortie", "Pou", "Ongle"]
+  },
+  {
+    "id": 21,
+    "regle": "Quelque chose qui s'achète",
+    "mots": ["Conscience", "Temps", "Silence", "Paix", "Maison", "Pain", "Vêtement", "Article"]
+  },
+  {
+    "id": 22,
+    "regle": "Quelque chose qui fait peur",
+    "mots": ["Ombre", "Silence", "Mort", "Vide", "Monstre", "Araignée", "Noir", "Fantôme"]
+  },
+  {
+    "id": 23,
+    "regle": "Quelque chose qui se vide",
+    "mots": ["Tête", "Mémoire", "Cœur", "Batterie", "Verre", "Bouteille", "Sac", "Poubelle"]
+  },
+  {
+    "id": 24,
+    "regle": "Quelque chose qui se partage",
+    "mots": ["Secret", "Addition", "Lit", "Avis", "Gâteau", "Wifi", "Pizza", "Amitié"]
+  },
+  {
+    "id": 25,
+    "regle": "Quelque chose qui glisse",
+    "mots": ["Temps", "Parole", "Serpent", "Savon", "Huile", "Ski", "Patin", "Verglas"]
+  },
+  {
+    "id": 26,
+    "regle": "Quelque chose qui grandit",
+    "mots": ["Amour", "Peur", "Ville", "Enfant", "Arbre", "Plante", "Taille", "Ombre"]
+  },
+  {
+    "id": 27,
+    "regle": "Quelque chose qui refroidit",
+    "mots": ["Ambiance", "Relation", "Cadavre", "Vent", "Automne", "Frigo", "Glace", "Hiver"]
+  },
+  {
+    "id": 28,
+    "regle": "Quelque chose qui pèse",
+    "mots": ["Silence", "Secret", "Faute", "Enclume", "Plomb", "Haltère", "Éléphant", "Poids"]
+  },
+  {
+    "id": 29,
+    "regle": "Quelque chose qui s'efface",
+    "mots": ["Souvenir", "Trace", "Erreur", "Tableau", "Ardoise", "Crayon", "Gomme", "Craie"]
+  },
+  {
+    "id": 30,
+    "regle": "Quelque chose qui explose",
+    "mots": ["Colère", "Joie", "Score", "Volcan", "Dynamite", "Bombe", "Pétard", "Ballon"]
+  },
+  {
+    "id": 31,
+    "regle": "Quelque chose qui se tord",
+    "mots": ["Vérité", "Rire", "Esprit", "Fil de fer", "Cheville", "Cuillère", "Spaghetti", "Tire-bouchon"]
+  },
+  {
+    "id": 32,
+    "regle": "Quelque chose qui colle",
+    "mots": ["Étiquette", "Souvenir", "Regard", "Bonbon", "Miel", "Résine", "Scotch", "Colle"]
+  },
+  {
+    "id": 33,
+    "regle": "Quelque chose qui se boit",
+    "mots": ["Parole", "Victoire", "Soupe", "Lait", "Vin", "Jus", "Bière", "Eau"]
+  },
+  {
+    "id": 34,
+    "regle": "Quelque chose qui s'ouvre",
+    "mots": ["Cœur", "Esprit", "Appétit", "Livre", "Rideau", "Fenêtre", "Porte", "Clé"]
+  },
+  {
+    "id": 35,
+    "regle": "Quelque chose qui se casse",
+    "mots": ["Voix", "Amitié", "Rythme", "Sommeil", "Verre", "Œuf", "Branche", "Cristal"]
+  },
+  {
+    "id": 36,
+    "regle": "Quelque chose qui siffle",
+    "mots": ["Vent", "Serpent", "Flèche", "Bouilloire", "Train", "Arbitre", "Merle", "Chut"]
+  },
+  {
+    "id": 37,
+    "regle": "Quelque chose qui rebondit",
+    "mots": ["Idée", "Écho", "Lumière", "Ressort", "Kangourou", "Tennis", "Basket", "Ballon"]
+  },
+  {
+    "id": 38,
+    "regle": "Quelque chose qui monte",
+    "mots": ["Ton", "Enchères", "Sève", "Marée", "Escalier", "Ascenseur", "Montgolfière", "Avion"]
+  },
+  {
+    "id": 39,
+    "regle": "Quelque chose qui est acide",
+    "mots": ["Critique", "Remarque", "Vin", "Yaourt", "Pomme", "Vinaigre", "Citron", "Acide"]
+  },
+  {
+    "id": 40,
+    "regle": "Quelque chose qui est amer",
+    "mots": ["Défaite", "Regret", "Endive", "Café", "Chocolat", "Pamplemousse", "Tonic", "Fiel"]
+  },
+  {
+    "id": 41,
+    "regle": "Quelque chose qui est doux",
+    "mots": ["Rêve", "Parole", "Peau", "Coton", "Miel", "Sucre", "Plume", "Velours"]
+  },
+  {
+    "id": 42,
+    "regle": "Quelque chose qui est lourd",
+    "mots": ["Regard", "Secret", "Responsabilité", "Camion", "Baleine", "Plomb", "Enclume", "Haltère"]
+  },
+  {
+    "id": 43,
+    "regle": "Quelque chose qui est fragile",
+    "mots": ["Amitié", "Équilibre", "Bulle", "Cristal", "Porcelaine", "Verre", "Œuf", "Coquille"]
+  },
+  {
+    "id": 44,
+    "regle": "Quelque chose qui est invisible",
+    "mots": ["Dieu", "Pensée", "Ondes", "Odeur", "Vent", "Air", "Gaz", "Fantôme"]
+  },
+  {
+    "id": 45,
+    "regle": "Quelque chose qui est piquant",
+    "mots": ["Ironie", "Jalousie", "Ortie", "Rose", "Épine", "Moustique", "Piment", "Cactus"]
+  },
+  {
+    "id": 46,
+    "regle": "Quelque chose qui est froid",
+    "mots": ["Accueil", "Marbre", "Acier", "Mort", "Hiver", "Frigo", "Glace", "Azote"]
+  },
+  {
+    "id": 47,
+    "regle": "Quelque chose qui est chaud",
+    "mots": ["Cœur", "Accueil", "Pain", "Sable", "Soleil", "Four", "Feu", "Lave"]
+  },
+  {
+    "id": 48,
+    "regle": "Quelque chose qui est salé",
+    "mots": ["Addition", "Note", "Mer", "Larme", "Beurre", "Cacahuète", "Sel", "Eau de mer"]
+  },
+  {
+    "id": 49,
+    "regle": "Quelque chose qui est sucré",
+    "mots": ["Revanche", "Mot", "Fruit", "Sirop", "Miel", "Bonbon", "Caramel", "Sucre"]
+  },
+  {
+    "id": 50,
+    "regle": "Quelque chose qui est transparent",
+    "mots": ["Mensonge", "Intention", "Air", "Eau", "Vitre", "Verre", "Cristal", "Diamant"]
+  },
+  {
+    "id": 51,
+    "regle": "Quelque chose qui se bat",
+    "mots": ["Cœur", "Record", "Pavé", "Œil", "Tambour", "Duel", "Soldat", "Boxeur"]
+  },
+  {
+    "id": 52,
+    "regle": "Quelque chose qui se cultive",
+    "mots": ["Esprit", "Amitié", "Patience", "Champ", "Potager", "Bactérie", "Fleur", "Blé"]
+  },
+  {
+    "id": 53,
+    "regle": "Quelque chose qui se signe",
+    "mots": ["Contrat", "Paix", "Pacte", "Autographe", "Pétition", "Chèque", "Lettre", "Prénom"]
+  },
+  {
+    "id": 54,
+    "regle": "Quelque chose qui se porte",
+    "mots": ["Nom", "Malheur", "Fruit", "Enfant", "Valise", "Sac", "Robe", "Chapeau"]
+  },
+  {
+    "id": 55,
+    "regle": "Quelque chose qui se règle",
+    "mots": ["Problème", "Note", "Détail", "Conflit", "Montre", "Mire", "Addition", "Facture"]
+  },
+  {
+    "id": 56,
+    "regle": "Quelque chose qui s’arrose",
+    "mots": ["Victoire", "Fleur", "Jardin", "Pot", "Soif", "Plantation", "Pelouse", "Plante"]
+  },
+  {
+    "id": 57,
+    "regle": "Quelque chose qui se tait",
+    "mots": ["Secret", "Douleur", "Crime", "Témoin", "Silence", "Muet", "Chut", "Bouche"]
+  },
+  {
+    "id": 58,
+    "regle": "Quelque chose qui s’imprime",
+    "mots": ["Souvenir", "Marque", "Rétine", "Tissu", "Photo", "Livre", "Journal", "Papier"]
+  },
+  {
+    "id": 59,
+    "regle": "Quelque chose qui se creuse",
+    "mots": ["Écart", "Appétit", "Méninges", "Ride", "Trou", "Fossé", "Puits", "Tunnel"]
+  },
+  {
+    "id": 60,
+    "regle": "Quelque chose qui se dévore",
+    "mots": ["Livre", "Passion", "Regard", "Proie", "Plat", "Gâteau", "Pomme", "Nourriture"]
+  },
+  {
+    "id": 61,
+    "regle": "Quelque chose qui se respire",
+    "mots": ["Liberté", "Bonheur", "Parfum", "Air", "Oxygène", "Odeur", "Fleur", "Brise"]
+  },
+  {
+    "id": 62,
+    "regle": "Quelque chose qui se visite",
+    "mots": ["Passé", "Musée", "Monument", "Château", "Ville", "Pays", "Maison", "Appartement"]
+  },
+  {
+    "id": 63,
+    "regle": "Quelque chose qui se ferme",
+    "mots": ["Porte", "Fenêtre", "Œil", "Bouche", "Valise", "Livre", "Parenthèse", "Fermeture"]
+  },
+  {
+    "id": 64,
+    "regle": "Quelque chose qui se lance",
+    "mots": ["Défi", "Mode", "Regard", "Rumeur", "Javelot", "Disque", "Ballon", "Pierre"]
+  },
+  {
+    "id": 65,
+    "regle": "Quelque chose qui s’écoute",
+    "mots": ["Conseil", "Cœur", "Silence", "Musique", "Radio", "Chanson", "Histoire", "Bruit"]
+  },
+  {
+    "id": 66,
+    "regle": "Quelque chose qui se dessine",
+    "mots": ["Avenir", "Sourire", "Silhouette", "Contour", "Portrait", "Paysage", "BD", "Plan"]
+  },
+  {
+    "id": 67,
+    "regle": "Quelque chose qui se plante",
+    "mots": ["Décor", "Clou", "Tente", "Arbre", "Graine", "Fleur", "Couteau", "Piquet"]
+  },
+  {
+    "id": 68,
+    "regle": "Quelque chose qui se lave",
+    "mots": ["Conscience", "Affront", "Honneur", "Mains", "Visage", "Linge", "Vaisselle", "Voiture"]
+  },
+  {
+    "id": 69,
+    "regle": "Quelque chose qui se compte",
+    "mots": ["Points", "Moutons", "Jours", "Argent", "Chiffres", "Heures", "Doigts", "Nombres"]
+  },
+  {
+    "id": 70,
+    "regle": "Quelque chose qui se raconte",
+    "mots": ["Vie", "Mensonge", "Anecdote", "Légende", "Conte", "Histoire", "Blague", "Fable"]
+  },
+  {
+    "id": 71,
+    "regle": "Quelque chose qui se chauffe",
+    "mots": ["Ambiance", "Voix", "Moteur", "Plat", "Eau", "Radiateur", "Soleil", "Fer"]
+  },
+  {
+    "id": 72,
+    "regle": "Quelque chose qui se mouille",
+    "mots": ["Chemise", "Maillot", "Index", "Plume", "Éponge", "Serviette", "Pluie", "Eau"]
+  },
+  {
+    "id": 73,
+    "regle": "Quelque chose qui se cherche",
+    "mots": ["Identité", "Vérité", "Excuse", "Clés", "Travail", "Objet", "Solution", "Trésor"]
+  },
+  {
+    "id": 74,
+    "regle": "Quelque chose qui se trouve",
+    "mots": ["Solution", "Accord", "Excuse", "Rue", "Objet", "Perle", "Trésor", "Réponse"]
+  },
+  {
+    "id": 75,
+    "regle": "Quelque chose qui se vend",
+    "mots": ["Âme", "Rêve", "Publicité", "Produit", "Voiture", "Maison", "Pain", "Article"]
+  },
+  {
+    "id": 76,
+    "regle": "Quelque chose qui s’allonge",
+    "mots": ["Liste", "Jour", "Ombre", "Jambes", "Route", "Lit", "Canapé", "Sieste"]
+  },
+  {
+    "id": 77,
+    "regle": "Quelque chose qui se déchire",
+    "mots": ["Cœur", "Silence", "Voix", "Nuage", "Papier", "Tissu", "Page", "Affiche"]
+  },
+  {
+    "id": 78,
+    "regle": "Quelque chose qui se mélange",
+    "mots": ["Pinceaux", "Couleurs", "Cartes", "Ingrédients", "Salade", "Cocktail", "Peinture", "Pâte"]
+  },
+  {
+    "id": 79,
+    "regle": "Quelque chose qui se regarde",
+    "mots": ["Vérité", "Miroir", "Paysage", "Film", "Télévision", "Tableau", "Photo", "Écran"]
+  },
+  {
+    "id": 80,
+    "regle": "Quelque chose qui se nettoie",
+    "mots": ["Casier", "Réputation", "Plage", "Blessure", "Vitre", "Sol", "Dent", "Peau"]
+  },
+  {
+    "id": 81,
+    "regle": "Quelque chose qui se branche",
+    "mots": ["Contact", "Courant", "Guitare", "Ordinateur", "Lampe", "Chargeur", "Prise", "Secteur"]
+  },
+  {
+    "id": 82,
+    "regle": "Quelque chose qui se gratte",
+    "mots": ["Guitare", "Ticket", "Ciel", "Gorge", "Tête", "Bouton", "Croûte", "Peau"]
+  },
+  {
+    "id": 83,
+    "regle": "Quelque chose qui se dégonfle",
+    "mots": ["Orgueil", "Pneu", "Matelas", "Soufflé", "Baudruche", "Ballon", "Dirigeable", "Air"]
+  },
+  {
+    "id": 84,
+    "regle": "Quelque chose qui se répare",
+    "mots": ["Erreur", "Cœur", "Relation", "Fuite", "Moteur", "Vélo", "Jouet", "Objet"]
+  },
+  {
+    "id": 85,
+    "regle": "Quelque chose qui se déguise",
+    "mots": ["Vérité", "Intention", "Voix", "Acteur", "Carnaval", "Masque", "Costume", "Clown"]
+  },
+  {
+    "id": 86,
+    "regle": "Quelque chose qui se traverse",
+    "mots": ["Épreuve", "Désert", "Ville", "Pont", "Rue", "Rivière", "Océan", "Route"]
+  },
+  {
+    "id": 87,
+    "regle": "Quelque chose qui se soigne",
+    "mots": ["Mal", "Apparence", "Détail", "Maladie", "Patient", "Blessure", "Grippe", "Rhume"]
+  },
+  {
+    "id": 88,
+    "regle": "Quelque chose qui se cuisine",
+    "mots": ["Affaire", "Projet", "Sauce", "Légume", "Viande", "Poisson", "Plat", "Recette"]
+  },
+  {
+    "id": 89,
+    "regle": "Quelque chose qui s’habille",
+    "mots": ["Mariée", "Poupée", "Salade", "Arbre (hiver)", "Enfant", "Homme", "Corps", "Vêtement"]
+  },
+  {
+    "id": 90,
+    "regle": "Quelque chose qui se sème",
+    "mots": ["Trouble", "Discorde", "Vent", "Doute", "Idée", "Graine", "Blé", "Fleur"]
+  },
+  {
+    "id": 91,
+    "regle": "Quelque chose qui se récolte",
+    "mots": ["Lauriers", "Gloire", "Fruit", "Légume", "Blé", "Maïs", "Vendange", "Moisson"]
+  },
+  {
+    "id": 92,
+    "regle": "Quelque chose qui se surveille",
+    "mots": ["Lait", "Poids", "Feu", "Enfant", "Prisonnier", "Frontière", "Caméra", "Gardien"]
+  },
+  {
+    "id": 93,
+    "regle": "Quelque chose qui s’apprend",
+    "mots": ["Leçon", "Métier", "Vie", "Langue", "Musique", "École", "Savoir", "Connaissance"]
+  },
+  {
+    "id": 94,
+    "regle": "Quelque chose qui se bloque",
+    "mots": ["Situation", "Dialogue", "Moteur", "Roue", "Serrure", "Frein", "Porte", "Fenêtre"]
+  },
+  {
+    "id": 95,
+    "regle": "Quelque chose qui s’effondre",
+    "mots": ["Espoir", "Bourse", "Empire", "Mur", "Toit", "Immeuble", "Château de cartes", "Ruine"]
+  },
+  {
+    "id": 96,
+    "regle": "Quelque chose qui se mesure",
+    "mots": ["Succès", "Temps", "Distance", "Taille", "Poids", "Température", "Règle", "Mètre"]
+  },
+  {
+    "id": 97,
+    "regle": "Quelque chose qui se transporte",
+    "mots": ["Maladie", "Idée", "Passager", "Colis", "Valise", "Sac", "Camion", "Bus"]
+  },
+  {
+    "id": 98,
+    "regle": "Quelque chose qui s’éteint",
+    "mots": ["Passion", "Regard", "Espoir", "Voix", "Écran", "Bougie", "Lampe", "Feu"]
+  },
+  {
+    "id": 99,
+    "regle": "Quelque chose qui brise",
+    "mots": ["Silence", "Cœur", "Glace", "Tabou", "Verre", "Cristal", "Branche", "Chaîne"]
+  },
+  {
+    "id": 100,
+    "regle": "Quelque chose qui s’envole",
+    "mots": ["Temps", "Argent", "Prix", "Fumée", "Poussière", "Plume", "Avion", "Oiseau"]
+  },
+  {
+    "id": 101,
+    "regle": "Quelque chose qui s’accroche",
+    "mots": ["Espoir", "Regard", "Souvenir", "Lierre", "Moule", "Pince", "Crochet", "Patère"]
+  },
+  {
+    "id": 102,
+    "regle": "Quelque chose qui s’use",
+    "mots": ["Patience", "Amour", "Pouvoir", "Pneu", "Semelle", "Habit", "Friction", "Usure"]
+  },
+  {
+    "id": 103,
+    "regle": "Quelque chose qui se reflète",
+    "mots": ["Âme", "Vérité", "Idée", "Surface", "Vitre", "Eau", "Miroir", "Glace"]
+  },
+  {
+    "id": 104,
+    "regle": "Quelque chose qui s’agite",
+    "mots": ["Conscience", "Esprit", "Foule", "Drapeau", "Queue", "Feuillage", "Éventail", "Hochet"]
+  },
+  {
+    "id": 105,
+    "regle": "Quelque chose qui s’emplit",
+    "mots": ["Cœur", "Esprit", "Poumons", "Voile", "Verre", "Panier", "Sac", "Seau"]
+  },
+  {
+    "id": 106,
+    "regle": "Quelque chose qui se multiplie",
+    "mots": ["Erreur", "Pain", "Chance", "Cellule", "Lapin", "Chiffre", "Calcul", "Nombre"]
+  },
+  {
+    "id": 107,
+    "regle": "Quelque chose qui se divise",
+    "mots": ["Opinion", "Famille", "Particule", "Écran", "Gâteau", "Groupe", "Calcul", "Moitié"]
+  },
+  {
+    "id": 108,
+    "regle": "Quelque chose qui se pèse",
+    "mots": ["Mot", "Argument", "Responsabilité", "Or", "Bagage", "Fruits", "Kilo", "Balance"]
+  },
+  {
+    "id": 109,
+    "regle": "Quelque chose qui s’ajoute",
+    "mots": ["Détail", "Difficulté", "Ingrédient", "Chiffre", "Ligne", "Bonus", "Supplément", "Plus"]
+  },
+  {
+    "id": 110,
+    "regle": "Quelque chose qui s’enlève",
+    "mots": ["Doute", "Obstacle", "Tache", "Vêtement", "Masque", "Chapeau", "Chaussure", "Moins"]
+  },
+  {
+    "id": 111,
+    "regle": "Quelque chose qui se blesse",
+    "mots": ["Orgueil", "Amour", "Vanité", "Corps", "Peau", "Genou", "Animal", "Sang"]
+  },
+  {
+    "id": 112,
+    "regle": "Quelque chose qui se détruit",
+    "mots": ["Espoir", "Preuve", "Ville", "Mur", "Papier", "Château de sable", "Bombe", "Ruine"]
+  },
+  {
+    "id": 113,
+    "regle": "Quelque chose qui se construit",
+    "mots": ["Avenir", "Réputation", "Mur", "Maison", "Bateau", "Lego", "Puzzle", "Chantier"]
+  },
+  {
+    "id": 114,
+    "regle": "Quelque chose qui se transforme",
+    "mots": ["Rêve", "Visage", "Chenille", "Eau", "Glace", "Magicien", "Métamorphose", "Changement"]
+  },
+  {
+    "id": 115,
+    "regle": "Quelque chose qui se déplace",
+    "mots": ["Pion", "Idée", "Foule", "Bagage", "Voiture", "Train", "Avion", "Transport"]
+  },
+  {
+    "id": 116,
+    "regle": "Quelque chose qui se range",
+    "mots": ["Esprit", "Idée", "Dossier", "Livre", "Vêtement", "Jouet", "Vaisselle", "Placard"]
+  },
+  {
+    "id": 117,
+    "regle": "Quelque chose qui se reçoit",
+    "mots": ["Coup", "Leçon", "Appel", "Lettre", "Colis", "Salaire", "Cadeau", "Réception"]
+  },
+  {
+    "id": 118,
+    "regle": "Quelque chose qui s’attend",
+    "mots": ["Miracle", "Verdict", "Bus", "Train", "Bébé", "Réponse", "Demain", "Patience"]
+  },
+  {
+    "id": 119,
+    "regle": "Quelque chose qui s’évite",
+    "mots": ["Regard", "Danger", "Obstacle", "Choc", "Accident", "Erreur", "Sujet", "Problème"]
+  },
+  {
+    "id": 120,
+    "regle": "Quelque chose qui se franchit",
+    "mots": ["Étape", "Limite", "Seuil", "Ligne", "Obstacle", "Mur", "Frontière", "Portail"]
+  },
+  {
+    "id": 121,
+    "regle": "Quelque chose qui s’attaque",
+    "mots": ["Problème", "Dossier", "Ennemi", "Fort", "Château", "Mur", "Soldat", "Assaut"]
+  },
+  {
+    "id": 122,
+    "regle": "Quelque chose qui se défend",
+    "mots": ["Cause", "Honneur", "Idée", "Titre", "Château", "Accusé", "Avocat", "Gardien"]
+  },
+  {
+    "id": 123,
+    "regle": "Quelque chose qui se libère",
+    "mots": ["Prisonnier", "Gaz", "Énergie", "Parole", "Stress", "Captif", "Cage", "Liberté"]
+  },
+  {
+    "id": 124,
+    "regle": "Quelque chose qui se capture",
+    "mots": ["Instant", "Image", "Écran", "Regard", "Animal", "Poisson", "Prisonnier", "Filet"]
+  },
+  {
+    "id": 125,
+    "regle": "Quelque chose qui se jette",
+    "mots": ["Éponge", "Regard", "Sort", "Dé", "Ancre", "Papier", "Poubelle", "Ordures"]
+  },
+  {
+    "id": 126,
+    "regle": "Quelque chose qui se ramasse",
+    "mots": ["Points", "Miettes", "Coquillages", "Champignons", "Feuilles", "Copie", "Objet", "Terre"]
+  },
+  {
+    "id": 127,
+    "regle": "Quelque chose qui se déplie",
+    "mots": ["Avenir", "Carte", "Tente", "Échelle", "Ailes", "Journal", "Nappe", "Drap"]
+  },
+  {
+    "id": 128,
+    "regle": "Quelque chose qui se serre",
+    "mots": ["Cœur", "Gorge", "Main", "Vis", "Boulon", "Ceinture", "Nœud", "Étau"]
+  },
+  {
+    "id": 129,
+    "regle": "Quelque chose qui se desserre",
+    "mots": ["Étau", "Tension", "Emprise", "Frein", "Lien", "Ceinture", "Nœud", "Vis"]
+  },
+  {
+    "id": 130,
+    "regle": "Quelque chose qui se sépare",
+    "mots": ["Couple", "Atome", "Blanc (œuf)", "Groupe", "Pièce", "Tri", "Ciseaux", "Clôture"]
+  },
+  {
+    "id": 131,
+    "regle": "Quelque chose qui se salit",
+    "mots": ["Nom", "Réputation", "Mains", "Visage", "Habit", "Chaussure", "Sol", "Boue"]
+  },
+  {
+    "id": 132,
+    "regle": "Quelque chose qui se sèche",
+    "mots": ["Larmes", "Peinture", "Encre", "Linge", "Cheveux", "Vaisselle", "Serviette", "Étendoir"]
+  },
+  {
+    "id": 133,
+    "regle": "Quelque chose qui se déracine",
+    "mots": ["Mal", "Habitude", "Tradition", "Arbre", "Plante", "Fleur", "Souche", "Racine"]
+  },
+  {
+    "id": 134,
+    "regle": "Quelque chose qui se fane",
+    "mots": ["Beauté", "Jeunesse", "Espoir", "Souvenir", "Bouquet", "Rose", "Plante", "Fleur"]
+  },
+  {
+    "id": 135,
+    "regle": "Quelque chose qui se coupe",
+    "mots": ["Parole", "Sifflet", "Chemin", "Faim", "Cheveux", "Pain", "Ongle", "Ciseaux"]
+  },
+  {
+    "id": 136,
+    "regle": "Quelque chose qui se détache",
+    "mots": ["Regard", "Ombre", "Bouton", "Feuille", "Pièce", "Wagon", "Remorque", "Étiquette"]
+  },
+  {
+    "id": 137,
+    "regle": "Quelque chose qui se suspend",
+    "mots": ["Séance", "Vol", "Temps", "Pont", "Lustre", "Rideau", "Jambon", "Balançoire"]
+  },
+  {
+    "id": 138,
+    "regle": "Quelque chose qui se balance",
+    "mots": ["Cœur", "Décision", "Rythme", "Branche", "Pendule", "Hamac", "Berceau", "Balançoire"]
+  },
+  {
+    "id": 139,
+    "regle": "Quelque chose qui se pousse",
+    "mots": ["Cri", "Limite", "Avantage", "Porte", "Voiture", "Caddie", "Bouton", "Poussette"]
+  },
+  {
+    "id": 140,
+    "regle": "Quelque chose qui se tire",
+    "mots": ["Conclusion", "Plan", "Rideau", "Corde", "Tiroir", "Poignée", "Remorque", "Chariot"]
+  },
+  {
+    "id": 141,
+    "regle": "Quelque chose qui se lève",
+    "mots": ["Séance", "Doute", "Jour", "Soleil", "Vent", "Armée", "Main", "Pied"]
+  },
+  {
+    "id": 142,
+    "regle": "Quelque chose qui se baisse",
+    "mots": ["Rideau", "Ton", "Tête", "Regard", "Prix", "Chaleur", "Volume", "Manette"]
+  },
+  {
+    "id": 143,
+    "regle": "Quelque chose qui se tourne",
+    "mots": ["Page", "Talons", "Dos", "Tête", "Clé", "Bouton", "Volant", "Roue"]
+  },
+  {
+    "id": 144,
+    "regle": "Quelque chose qui se renverse",
+    "mots": ["Vapeur", "Situation", "Opinion", "Verre", "Bouteille", "Bol", "Table", "Camion"]
+  },
+  {
+    "id": 145,
+    "regle": "Quelque chose qui se caresse",
+    "mots": ["Espoir", "Rêve", "Visage", "Main", "Cheveux", "Chat", "Chien", "Plume"]
+  },
+  {
+    "id": 146,
+    "regle": "Quelque chose qui se frappe",
+    "mots": ["Esprit", "Monnaie", "Main", "Tambour", "Balle", "Ballon", "Porte", "Marteau"]
+  },
+  {
+    "id": 147,
+    "regle": "Quelque chose qui se frotte",
+    "mots": ["Mains", "Yeux", "Allumette", "Éponge", "Gomme", "Chiffon", "Savon", "Brosse"]
+  },
+  {
+    "id": 148,
+    "regle": "Quelque chose qui se déploie",
+    "mots": ["Ailes", "Voile", "Écran", "Carte", "Tente", "Drapeau", "Éventail", "Parachute"]
+  },
+  {
+    "id": 149,
+    "regle": "Quelque chose qui se contracte",
+    "mots": ["Cœur", "Muscle", "Budget", "Pupille", "Délai", "Dette", "Crédit", "Contrat"]
+  },
+  {
+    "id": 150,
+    "regle": "Quelque chose qui se dilate",
+    "mots": ["Pupille", "Temps", "Métal", "Gaz", "Chaleur", "Artère", "Vaisseau", "Univers"]
+  },
+  {
+    "id": 151,
+    "regle": "Quelque chose qui se comprime",
+    "mots": ["Temps", "Air", "Ressort", "Gaz", "Éponge", "Fichier", "Donnée", "ZIP"]
+  },
+  {
+    "id": 152,
+    "regle": "Quelque chose qui se relâche",
+    "mots": ["Tension", "Attention", "Effort", "Muscle", "Frein", "Ressort", "Corde", "Élastique"]
+  },
+  {
+    "id": 153,
+    "regle": "Quelque chose qui se tend",
+    "mots": ["Situation", "Relation", "Muscle", "Corde", "Arc", "Élastique", "Piège", "Filet"]
+  },
+  {
+    "id": 154,
+    "regle": "Quelque chose qui se noue",
+    "mots": ["Relation", "Intrigue", "Gorge", "Ventre", "Cravate", "Lacet", "Corde", "Nœud"]
+  },
+  {
+    "id": 155,
+    "regle": "Quelque chose qui se dénoue",
+    "mots": ["Crise", "Mystère", "Intrigue", "Lien", "Cravate", "Lacet", "Corde", "Nœud"]
+  },
+  {
+    "id": 156,
+    "regle": "Quelque chose qui se murmure",
+    "mots": ["Vent", "Secret", "Prière", "Confiance", "Aveu", "Oreille", "Mot", "Voix"]
+  },
+  {
+    "id": 157,
+    "regle": "Quelque chose qui se télécharge",
+    "mots": ["Savoir", "Virus", "Application", "Film", "Musique", "Fichier", "Logiciel", "Donnée"]
+  },
+  {
+    "id": 158,
+    "regle": "Quelque chose qui se charge",
+    "mots": ["Responsabilité", "Accusé", "Batterie", "Smartphone", "Fusil", "Camion", "Pile", "Électricité"]
+  },
+  {
+    "id": 159,
+    "regle": "Quelque chose qui se streame",
+    "mots": ["Flux", "Direct", "Concert", "Série", "Film", "Musique", "Twitch", "Netflix"]
+  },
+  {
+    "id": 160,
+    "regle": "Quelque chose qui se like",
+    "mots": ["Opinion", "Photo", "Publication", "Statut", "Profil", "Réseaux", "Instagram", "Facebook"]
+  },
+  {
+    "id": 161,
+    "regle": "Quelque chose qui se connecte",
+    "mots": ["Esprit", "Idée", "Bluetooth", "Wifi", "Câble", "Prise", "Réseau", "Internet"]
+  },
+  {
+    "id": 162,
+    "regle": "Quelque chose qui s’enregistre",
+    "mots": ["Voix", "Image", "Naissance", "Bagage", "Album", "Disque", "Audio", "Studio"]
+  },
+  {
+    "id": 163,
+    "regle": "Quelque chose qui se swipe",
+    "mots": ["Profil", "Tinder", "Écran", "Photo", "Page", "Smartphone", "Gauche", "Droite"]
+  },
+  {
+    "id": 164,
+    "regle": "Quelque chose qui s'installe",
+    "mots": ["Routine", "Peur", "Logiciel", "Meuble", "Climatisation", "Client", "Fauteuil", "Confort"]
+  },
+  {
+    "id": 165,
+    "regle": "Quelque chose qui se hacke",
+    "mots": ["Système", "Cerveau", "Code", "Compte", "Site", "Ordinateur", "Pirate", "Informatique"]
+  },
+  {
+    "id": 166,
+    "regle": "Quelque chose qui se filtre",
+    "mots": ["Vérité", "Information", "Lumière", "Eau", "Café", "Piscine", "Photo", "Instagram"]
+  },
+  {
+    "id": 167,
+    "regle": "Quelque chose qui se commande",
+    "mots": ["Respect", "Destin", "Taxi", "Uber", "Pizza", "Plat", "Colis", "Restaurant"]
+  },
+  {
+    "id": 168,
+    "regle": "Quelque chose qui se livre",
+    "mots": ["Bataille", "Secret", "Colis", "Journal", "Pizza", "Message", "Courrier", "Facteur"]
+  },
+  {
+    "id": 169,
+    "regle": "Quelque chose qui se loue",
+    "mots": ["Services", "Talent", "Voiture", "Appartement", "Vélo", "Costume", "DVD", "Ski"]
+  },
+  {
+    "id": 170,
+    "regle": "Quelque chose qui se réserve",
+    "mots": ["Droit", "Sort", "Place", "Table", "Chambre", "Avion", "Billet", "Hôtel"]
+  },
+  {
+    "id": 171,
+    "regle": "Quelque chose qui se conduit",
+    "mots": ["Vie", "Projet", "Orchestre", "Entretien", "Bus", "Camion", "Moto", "Voiture"]
+  },
+  {
+    "id": 172,
+    "regle": "Quelque chose qui se pilote",
+    "mots": ["Destin", "Équipe", "Drone", "Avion", "Hélicoptère", "Formule 1", "Volant", "Cockpit"]
+  },
+  {
+    "id": 173,
+    "regle": "Quelque chose qui se gaspille",
+    "mots": ["Temps", "Talent", "Chance", "Énergie", "Pain", "Argent", "Nourriture", "Eau"]
+  },
+  {
+    "id": 174,
+    "regle": "Quelque chose qui se conserve",
+    "mots": ["Calme", "Silence", "Tradition", "Vin", "Confiture", "Frigo", "Boîte", "Frais"]
+  },
+  {
+    "id": 175,
+    "regle": "Quelque chose qui se consomme",
+    "mots": ["Passion", "Temps", "Crédit", "Électricité", "Gaz", "Essence", "Plat", "Alcool"]
+  },
+  {
+    "id": 176,
+    "regle": "Quelque chose qui se dépense",
+    "mots": ["Énergie", "Courage", "Salive", "Fortune", "Billet", "Pièce", "Argent", "Cash"]
+  },
+  {
+    "id": 177,
+    "regle": "Quelque chose qui s’économise",
+    "mots": ["Force", "Saliva", "Temps", "Papier", "Électricité", "Eau", "Tirelire", "Argent"]
+  },
+  {
+    "id": 178,
+    "regle": "Quelque chose qui s’investit",
+    "mots": ["Temps", "Cœur", "Énergie", "Projet", "Bourse", "Actions", "Capital", "Argent"]
+  },
+  {
+    "id": 179,
+    "regle": "Quelque chose qui se suit",
+    "mots": ["Logique", "Exemple", "Régime", "Piste", "Série", "Film", "Chemin", "Trace"]
+  },
+  {
+    "id": 180,
+    "regle": "Quelque chose qui se précède",
+    "mots": ["Cause", "Ombre", "Nom", "Lettre", "Chiffre", "Hiérarchie", "Avant", "Premier"]
+  },
+  {
+    "id": 181,
+    "regle": "Quelque chose qui se remplace",
+    "mots": ["Pièce", "Joueur", "Ampoule", "Pile", "Batterie", "Pneu", "Cartouche", "Objet"]
+  },
+  {
+    "id": 182,
+    "regle": "Quelque chose qui se collectionne",
+    "mots": ["Succès", "Conquête", "Timbre", "Pièce", "Carte", "Figurine", "Album", "Art"]
+  },
+  {
+    "id": 183,
+    "regle": "Quelque chose qui se démode",
+    "mots": ["Style", "Expression", "Musique", "Coupe", "Habit", "Couleur", "Tendance", "Vêtement"]
+  },
+  {
+    "id": 184,
+    "regle": "Quelque chose qui se personnalise",
+    "mots": ["Profil", "Avatar", "Coque", "Cadeau", "Message", "T-shirt", "Objet", "Sur-mesure"]
+  },
+  {
+    "id": 185,
+    "regle": "Quelque chose qui se touche",
+    "mots": ["Fond", "Cœur", "Bout", "Tissu", "Peau", "Main", "Doigt", "Tactile"]
+  },
+  {
+    "id": 186,
+    "regle": "Quelque chose qui se sent",
+    "mots": ["Venir", "Danger", "Parfum", "Odeur", "Fleur", "Cuisine", "Nez", "Olfactif"]
+  },
+  {
+    "id": 187,
+    "regle": "Quelque chose qui se goûte",
+    "mots": ["Victoire", "Revanche", "Vin", "Sauce", "Plat", "Dessert", "Fruit", "Bouche"]
+  },
+  {
+    "id": 188,
+    "regle": "Quelque chose qui s’applaudit",
+    "mots": ["Discours", "Effort", "Spectacle", "Concert", "Artiste", "Performance", "Bravo", "Main"]
+  },
+  {
+    "id": 189,
+    "regle": "Quelque chose qui se fête",
+    "mots": ["Victoire", "Succès", "Noël", "Anniversaire", "Mariage", "Diplôme", "Soirée", "Cadeau"]
+  },
+  {
+    "id": 190,
+    "regle": "Quelque chose qui se gère",
+    "mots": ["Stress", "Projet", "Crise", "Équipe", "Dossier", "Budget", "Planning", "Manager"]
+  },
+  {
+    "id": 191,
+    "regle": "Quelque chose qui s'organise",
+    "mots": ["Vie", "Voyage", "Mariage", "Événement", "Planning", "Bureau", "Dossier", "Agenda"]
+  },
+  {
+    "id": 192,
+    "regle": "Quelque chose qui se prévoit",
+    "mots": ["Avenir", "Risque", "Budget", "Météo", "Planning", "Voyage", "Sortie", "Agenda"]
+  },
+  {
+    "id": 193,
+    "regle": "Quelque chose qui s'annule",
+    "mots": ["Dette", "Mariage", "Vol", "Train", "Match", "Rendez-vous", "Commande", "Zéro"]
+  },
+  {
+    "id": 194,
+    "regle": "Quelque chose qui se reporte",
+    "mots": ["Match", "Voix", "Date", "Réunion", "Échéance", "Projet", "Demain", "Plus tard"]
+  },
+  {
+    "id": 195,
+    "regle": "Quelque chose qui s'envoie",
+    "mots": ["Message", "Lettre", "Email", "Colis", "Fleurs", "Baiser", "Signal", "Poste"]
+  },
+  {
+    "id": 196,
+    "regle": "Quelque chose qui s'essuie",
+    "mots": ["Front", "Larmes", "Écran", "Table", "Vaisselle", "Mains", "Pieds", "Chiffon"]
+  },
+  {
+    "id": 197,
+    "regle": "Quelque chose qui se repasse",
+    "mots": ["Idée", "Film", "Examen", "Oral", "Linge", "Chemise", "Fer", "Planche"]
+  },
+  {
+    "id": 198,
+    "regle": "Quelque chose qui se coud",
+    "mots": ["Blessure", "Histoire", "Bouton", "Ourlet", "Tissu", "Fil", "Aiguille", "Couture"]
+  },
+  {
+    "id": 199,
+    "regle": "Quelque chose qui se tricote",
+    "mots": ["Lien", "Intrigue", "Pull", "Écharpe", "Laine", "Maille", "Aiguille", "Crochet"]
+  },
+  {
+    "id": 200,
+    "regle": "Quelque chose qui se gomme",
+    "mots": ["Erreur", "Passé", "Défaut", "Trait", "Crayon", "Papier", "Dessin", "Gomme"]
+  },
+  {
+    "id": 201,
+    "regle": "Quelque chose qui se taille",
+    "mots": ["Réputation", "Bavardage", "Pierre", "Diamant", "Arbre", "Haie", "Crayon", "Mine"]
+  },
+  {
+    "id": 202,
+    "regle": "Quelque chose qui se trace",
+    "mots": ["Route", "Avenir", "Ligne", "Cercle", "Plan", "Contour", "Dessin", "Règle"]
+  },
+  {
+    "id": 203,
+    "regle": "Quelque chose qui se calcule",
+    "mots": ["Risque", "Trajectoire", "Dose", "Chiffre", "Aire", "Volume", "Somme", "Maths"]
+  },
+  {
+    "id": 204,
+    "regle": "Quelque chose qui se vérifie",
+    "mots": ["Source", "Information", "Hypothèse", "Calcul", "Identité", "Ticket", "Preuve", "Vrai"]
+  },
+  {
+    "id": 205,
+    "regle": "Quelque chose qui se prouve",
+    "mots": ["Amour", "Théorie", "Crime", "Alibi", "Preuve", "Témoin", "Fait", "Vérité"]
+  },
+  {
+    "id": 206,
+    "regle": "Quelque chose qui s'enseigne",
+    "mots": ["Valeur", "Respect", "Discipline", "Matière", "Cours", "Classe", "École", "Prof"]
+  },
+  {
+    "id": 207,
+    "regle": "Quelque chose qui se retient",
+    "mots": ["Souffle", "Larmes", "Colère", "Leçon", "Nom", "Date", "Mémoire", "Rappel"]
+  },
+  {
+    "id": 208,
+    "regle": "Quelque chose qui s'oublie",
+    "mots": ["Rêve", "Passé", "Détail", "Nom", "Date", "Rendez-vous", "Clés", "Amnésie"]
+  },
+  {
+    "id": 209,
+    "regle": "Quelque chose qui se rappelle",
+    "mots": ["Souvenir", "Passé", "Détail", "Nom", "Date", "Appel", "Mémoire", "Rappel"]
+  },
+  {
+    "id": 210,
+    "regle": "Quelque chose qui se devine",
+    "mots": ["Intention", "Pensée", "Futur", "Énigme", "Charade", "Réponse", "Mystère", "Jeu"]
+  },
+  {
+    "id": 211,
+    "regle": "Quelque chose qui se verrouille",
+    "mots": ["Porte", "Coffre", "Téléphone", "Écran", "Session", "Compte", "Cadenas", "Verrou"]
+  },
+  {
+    "id": 212,
+    "regle": "Quelque chose qui se débloque",
+    "mots": ["Situation", "Niveau", "Bonus", "Écran", "Compte", "Serrure", "Frein", "Clé"]
+  },
+  {
+    "id": 213,
+    "regle": "Quelque chose qui s'active",
+    "mots": ["Levier", "Alarme", "Piège", "Moteur", "Carte", "Compte", "Bouton", "Marche"]
+  },
+  {
+    "id": 214,
+    "regle": "Quelque chose qui braconne",
+    "mots": ["Ombre", "Nuit", "Silence", "Savane", "Fusil", "Ivoire", "Braconnier", "Chasse"]
+  },
+  {
+    "id": 215,
+    "regle": "Quelque chose qui orbite",
+    "mots": ["Silence", "Vide", "Satellite", "Station", "Lune", "Terre", "Planète", "Espace"]
+  },
+  {
+    "id": 216,
+    "regle": "Quelque chose qui scintille",
+    "mots": ["Espoir", "Regard", "Rosée", "Guirlande", "Diamant", "Étoile", "Paillette", "Briller"]
+  },
+  {
+    "id": 217,
+    "regle": "Quelque chose qui rugit",
+    "mots": ["Vent", "Mer", "Foule", "Moteur", "Flamme", "Tigre", "Lion", "Cri"]
+  },
+  {
+    "id": 218,
+    "regle": "Quelque chose qui rampe",
+    "mots": ["Temps", "Peur", "Ombre", "Lierre", "Limace", "Escargot", "Lézard", "Serpent"]
+  },
+  {
+    "id": 219,
+    "regle": "Quelque chose qui butine",
+    "mots": ["Travail", "Fleur", "Pollen", "Jardin", "Ruche", "Bourdon", "Guêpe", "Abeille"]
+  },
+  {
+    "id": 220,
+    "regle": "Quelque chose qui hiberne",
+    "mots": ["Sommeil", "Hiver", "Grotte", "Froid", "Marmotte", "Tortue", "Nature", "Ours"]
+  },
+  {
+    "id": 221,
+    "regle": "Quelque chose qui galope",
+    "mots": ["Temps", "Cœur", "Rumeur", "Rythme", "Prairie", "Cavalier", "Sabot", "Cheval"]
+  },
+  {
+    "id": 222,
+    "regle": "Quelque chose qui plane",
+    "mots": ["Mystère", "Doute", "Silence", "Aigle", "Planeur", "Drone", "Ailes", "Voler"]
+  },
+  {
+    "id": 223,
+    "regle": "Quelque chose qui pique-nique",
+    "mots": ["Dimanche", "Herbe", "Panier", "Nappe", "Sandwich", "Fourmis", "Repas", "Camping"]
+  },
+  {
+    "id": 224,
+    "regle": "Quelque chose qui s’éclipse",
+    "mots": ["Gloire", "Présence", "Astre", "Ombre", "Soleil", "Lune", "Phénomène", "Noir"]
+  },
+  {
+    "id": 225,
+    "regle": "Quelque chose qui jaillit",
+    "mots": ["Idée", "Sang", "Pétrole", "Source", "Geyser", "Fontaine", "Eau", "Jet"]
+  },
+  {
+    "id": 226,
+    "regle": "Quelque chose qui s’évapore",
+    "mots": ["Argent", "Espoir", "Sueur", "Brume", "Vapeur", "Gaz", "Liquide", "Chaleur"]
+  },
+  {
+    "id": 227,
+    "regle": "Quelque chose qui gèle",
+    "mots": ["Ambiance", "Salaire", "Sang", "Regard", "Hiver", "Neige", "Glace", "Froid"]
+  },
+  {
+    "id": 228,
+    "regle": "Quelque chose qui bout",
+    "mots": ["Colère", "Sang", "Marmite", "Cuisine", "Théière", "Soupe", "Vapeur", "Eau"]
+  },
+  {
+    "id": 229,
+    "regle": "Quelque chose qui s’effiloche",
+    "mots": ["Mémoire", "Patience", "Temps", "Nuage", "Corde", "Tissu", "Fil", "Habit"]
+  },
+  {
+    "id": 230,
+    "regle": "Quelque chose qui s’oxyde",
+    "mots": ["Temps", "Fer", "Métal", "Air", "Rouille", "Acier", "Cuivre", "Vieux"]
+  },
+  {
+    "id": 231,
+    "regle": "Quelque chose qui s’aimante",
+    "mots": ["Regard", "Attraction", "Fer", "Pôle", "Magnétique", "Métal", "Nord", "Aimant"]
+  },
+  {
+    "id": 232,
+    "regle": "Quelque chose qui se fige",
+    "mots": ["Sang", "Sourire", "Regard", "Moment", "Peur", "Photo", "Statue", "Glace"]
+  },
+  {
+    "id": 233,
+    "regle": "Quelque chose qui dérive",
+    "mots": ["Esprit", "Continent", "Glace", "Courant", "Bateau", "Épave", "Mer", "Flotter"]
+  },
+  {
+    "id": 234,
+    "regle": "Quelque chose qui gronde",
+    "mots": ["Colère", "Foule", "Tonnerre", "Orage", "Vent", "Volcan", "Chien", "Bruit"]
+  },
+  {
+    "id": 235,
+    "regle": "Quelque chose qui aveugle",
+    "mots": ["Amour", "Passion", "Éclat", "Phare", "Projecteur", "Flash", "Lumière", "Soleil"]
+  },
+  {
+    "id": 236,
+    "regle": "Quelque chose qui s’entrechoque",
+    "mots": ["Idées", "Atomes", "Verres", "Glaçons", "Billes", "Pierres", "Choc", "Bruit"]
+  },
+  {
+    "id": 237,
+    "regle": "Quelque chose qui se décompose",
+    "mots": ["Temps", "Problème", "Lumière", "Matière", "Déchet", "Cadavre", "Nature", "Pourrir"]
+  },
+  {
+    "id": 238,
+    "regle": "Quelque chose qui s’illumine",
+    "mots": ["Visage", "Idée", "Ville", "Sapin", "Écran", "Ampoule", "Lampe", "Lumière"]
+  },
+  {
+    "id": 239,
+    "regle": "Quelque chose qui transperce",
+    "mots": ["Regard", "Cri", "Froid", "Flèche", "Aiguille", "Épée", "Lance", "Clou"]
+  },
+  {
+    "id": 240,
+    "regle": "Quelque chose qui enveloppe",
+    "mots": ["Mystère", "Silence", "Brouillard", "Ombre", "Drap", "Papier", "Cadeau", "Colis"]
+  },
+  {
+    "id": 241,
+    "regle": "Quelque chose qui s’imprègne",
+    "mots": ["Mémoire", "Esprit", "Tissu", "Éponge", "Odeur", "Parfum", "Liquide", "Boire"]
+  },
+  {
+    "id": 242,
+    "regle": "Quelque chose qui se camoufle",
+    "mots": ["Vérité", "Intention", "Soldat", "Jungle", "Animal", "Pieuvre", "Caméléon", "Cacher"]
+  },
+  {
+    "id": 243,
+    "regle": "Quelque chose qui se joue",
+    "mots": ["Destin", "Rôle", "Instrument", "Partie", "Match", "Scène", "Théâtre", "Jeu"]
+  },
+  {
+    "id": 244,
+    "regle": "Quelque chose qui s’échange",
+    "mots": ["Regard", "Parole", "Baiser", "Monnaie", "Timbre", "Cadeau", "Article", "Commerce"]
+  },
+  {
+    "id": 245,
+    "regle": "Quelque chose qui s’emprunte",
+    "mots": ["Chemin", "Identité", "Nom", "Mot", "Livre", "Argent", "Banque", "Crédit"]
+  },
+  {
+    "id": 246,
+    "regle": "Quelque chose qui se rembourse",
+    "mots": ["Dette", "Prêt", "Crédit", "Frais", "Billet", "Achat", "Argent", "Somme"]
+  },
+  {
+    "id": 247,
+    "regle": "Quelque chose qui se vole",
+    "mots": ["Baiser", "Temps", "Idée", "Regard", "Bijou", "Sac", "Argent", "Voleur"]
+  },
+  {
+    "id": 248,
+    "regle": "Quelque chose qui se désactive",
+    "mots": ["Bombe", "Alarme", "Piège", "Compte", "Option", "Mode", "Bouton", "Arrêt"]
+  },
+  {
+    "id": 249,
+    "regle": "Quelque chose qui bat",
+    "mots": ["Record", "Mesure", "Pavé", "Duel", "Tambour", "Cœur", "Ailes", "Battement"]
+  },
+  {
+    "id": 250,
+    "regle": "Quelque chose qui s'enterre",
+    "mots": ["Secret", "Hache", "Trésor", "Graine", "Déchet", "Os", "Cercueil", "Taupe"]
+  }
+]

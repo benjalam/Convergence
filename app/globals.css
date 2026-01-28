@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground: #e5e5e5;
+  --background: #0f0f0f;
+  --card: #1a1a1a;
+  --accent: #facc15;
+  --accent-hover: #fde047;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  min-height: 100vh;
+}
+
+/* Boutons larges mobile */
+@layer components {
+  .btn-primary {
+    @apply w-full max-w-sm py-4 px-6 rounded-2xl font-semibold text-lg
+           bg-[var(--accent)] text-black hover:bg-[var(--accent-hover)]
+           active:scale-[0.98] transition-all touch-manipulation;
+  }
+  .btn-secondary {
+    @apply w-full max-w-sm py-4 px-6 rounded-2xl font-semibold text-lg
+           bg-[var(--card)] border-2 border-neutral-600 text-neutral-200
+           hover:border-[var(--accent)] hover:text-[var(--accent)]
+           active:scale-[0.98] transition-all touch-manipulation;
+  }
+  .btn-small {
+    @apply py-3 px-5 rounded-xl font-medium
+           bg-[var(--card)] border border-neutral-600 text-neutral-200
+           hover:border-[var(--accent)] active:scale-[0.98] transition-all touch-manipulation;
+  }
+}
