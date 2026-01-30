@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import dataMotData from "@/data/datamot.json";
 import dataCineData from "@/data/datacine.json";
+import dataSportData from "@/data/datasport.json";
 
 function shuffle(arr) {
   const a = [...arr];
@@ -91,13 +92,21 @@ const POINTS = [15, 12, 10, 8, 6, 4, 2, 1]; // Points selon le nombre de mots r�
 const GAME_MODES = {
   classique: {
     name: "Classique",
+    emoji: "📝",
     description: "Trouve le mot-clé de la règle",
     data: dataMotData,
   },
   cinema: {
     name: "Cinéma",
+    emoji: "🎬",
     description: "Trouve le titre du film (en anglais ou français)",
     data: dataCineData,
+  },
+  sport: {
+    name: "Sport",
+    emoji: "⚽",
+    description: "Trouve le sport, l'athlète ou l'équipe",
+    data: dataSportData,
   },
 };
 
@@ -113,49 +122,60 @@ export default function Solo() {
   const [answer, setAnswer] = useState("");
   const [feedback, setFeedback] = useState(null); // null, "correct", "incorrect", "gaveup", "wrong"
   const [score, setScore] = useState(0);
-  const [bestScore, setBestScore] = useState(0);
+  const [bestScores, setBestScores] = useState({ classique: 0, cinema: 0, sport: 0 });
   const [leaderboard, setLeaderboard] = useState([]);
+  const [leaderboardMode, setLeaderboardMode] = useState("classique"); // Mode affiché dans le leaderboard
   const [myRank, setMyRank] = useState(null);
   const [loadingLeaderboard, setLoadingLeaderboard] = useState(false);
   const [lastKeyword, setLastKeyword] = useState(""); // Pour afficher la réponse au game over
+  
+  // Raccourci pour le meilleur score du mode actuel
+  const bestScore = bestScores[gameMode] || 0;
 
   const card = deck[currentIndex];
-  // En mode cinéma, la réponse est directement le titre du film (regle)
+  // En mode cinéma/sport, la réponse est directement le titre (regle)
   // En mode classique, on extrait le mot-clé de "Quelque chose qui..."
   const keyword = card 
-    ? (gameMode === "cinema" ? card.regle : extractKeyword(card.regle)) 
+    ? (gameMode === "classique" ? extractKeyword(card.regle) : card.regle) 
     : "";
 
-  // Charger pseudo et meilleur score depuis localStorage
+  // Charger pseudo et meilleurs scores depuis localStorage
   useEffect(() => {
     const savedPseudo = localStorage.getItem("convergence_solo_pseudo");
-    const savedBest = localStorage.getItem("convergence_solo_best");
     if (savedPseudo) setPseudo(savedPseudo);
-    if (savedBest) setBestScore(parseInt(savedBest, 10) || 0);
+    
+    // Charger les meilleurs scores pour chaque mode
+    const scores = {};
+    Object.keys(GAME_MODES).forEach((mode) => {
+      const saved = localStorage.getItem(`convergence_solo_best_${mode}`);
+      scores[mode] = saved ? parseInt(saved, 10) || 0 : 0;
+    });
+    setBestScores(scores);
   }, []);
 
-  // Charger le leaderboard
-  const fetchLeaderboard = async () => {
+  // Charger le leaderboard pour un mode donné
+  const fetchLeaderboard = async (mode = leaderboardMode) => {
     setLoadingLeaderboard(true);
     try {
-      const res = await fetch("/api/leaderboard");
+      const res = await fetch(`/api/leaderboard?mode=${mode}`);
       const data = await res.json();
       setLeaderboard(data.leaderboard || []);
+      setLeaderboardMode(mode);
     } catch (e) {
       console.error("Erreur chargement leaderboard:", e);
     }
     setLoadingLeaderboard(false);
   };
 
-  // Soumettre le score au leaderboard
-  const submitScore = async (finalScore) => {
+  // Soumettre le score au leaderboard (avec le mode)
+  const submitScore = async (finalScore, mode = gameMode) => {
     if (!pseudo.trim()) return;
     
     try {
       const res = await fetch("/api/leaderboard", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pseudo: pseudo.trim(), score: finalScore }),
+        body: JSON.stringify({ pseudo: pseudo.trim(), score: finalScore, mode }),
       });
       const data = await res.json();
       if (data.rank) setMyRank(data.rank);
@@ -171,13 +191,13 @@ export default function Solo() {
     }
   }, [pseudo]);
 
-  // Sauvegarder le meilleur score
+  // Sauvegarder le meilleur score par mode
   useEffect(() => {
-    if (score > bestScore) {
-      setBestScore(score);
-      localStorage.setItem("convergence_solo_best", score.toString());
+    if (score > bestScore && phase === "playing") {
+      setBestScores((prev) => ({ ...prev, [gameMode]: score }));
+      localStorage.setItem(`convergence_solo_best_${gameMode}`, score.toString());
     }
-  }, [score, bestScore]);
+  }, [score, bestScore, gameMode, phase]);
 
   const startGame = () => {
     if (!pseudo.trim()) return;
@@ -203,9 +223,10 @@ export default function Solo() {
     if (!answer.trim()) return;
 
     // Utilise la fonction de validation appropriée selon le mode
-    const isCorrect = gameMode === "cinema" 
-      ? isMovieAnswerClose(answer, keyword)
-      : isAnswerClose(answer, keyword);
+    // Cinema et Sport utilisent une tolérance plus grande (titres/noms)
+    const isCorrect = gameMode === "classique" 
+      ? isAnswerClose(answer, keyword)
+      : isMovieAnswerClose(answer, keyword);
 
     if (isCorrect) {
       // Points basés sur le nombre de mots révélés (0 = pas encore révélé = 15pts bonus)
@@ -262,7 +283,7 @@ export default function Solo() {
   };
 
   const showLeaderboard = () => {
-    fetchLeaderboard();
+    fetchLeaderboard(gameMode);
     setPhase("leaderboard");
   };
 
@@ -298,20 +319,20 @@ export default function Solo() {
           <label className="block text-sm font-medium text-neutral-400 mb-2">
             Type de jeu
           </label>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-3 gap-2">
             {Object.entries(GAME_MODES).map(([key, mode]) => (
               <button
                 key={key}
                 type="button"
                 onClick={() => setGameMode(key)}
-                className={`py-3 px-4 rounded-xl font-medium text-center transition ${
+                className={`py-3 px-2 rounded-xl font-medium text-center transition ${
                   gameMode === key
                     ? "bg-[var(--accent)] text-black"
                     : "bg-[var(--card)] border border-neutral-600 text-neutral-300 hover:border-neutral-500"
                 }`}
               >
-                <span className="block text-lg">{key === "cinema" ? "🎬" : "📝"}</span>
-                <span className="block text-sm">{mode.name}</span>
+                <span className="block text-lg">{mode.emoji}</span>
+                <span className="block text-xs">{mode.name}</span>
               </button>
             ))}
           </div>
@@ -355,7 +376,7 @@ export default function Solo() {
   // Écran du leaderboard
   if (phase === "leaderboard") {
     return (
-      <main className="min-h-screen p-6 flex flex-col items-center gap-6">
+      <main className="min-h-screen p-6 flex flex-col items-center gap-4">
         <div className="w-full max-w-sm flex items-center justify-between">
           <button
             onClick={() => setPhase("config")}
@@ -364,7 +385,7 @@ export default function Solo() {
             ← Retour
           </button>
           <button
-            onClick={fetchLeaderboard}
+            onClick={() => fetchLeaderboard(leaderboardMode)}
             className="text-neutral-400 hover:text-[var(--accent)] transition text-sm"
           >
             🔄 Actualiser
@@ -373,11 +394,31 @@ export default function Solo() {
 
         <h1 className="text-2xl font-bold">🏆 Classement mondial</h1>
 
+        {/* Onglets de sélection du mode */}
+        <div className="w-full max-w-sm flex gap-1 bg-[var(--card)] p-1 rounded-xl">
+          {Object.entries(GAME_MODES).map(([key, mode]) => (
+            <button
+              key={key}
+              onClick={() => fetchLeaderboard(key)}
+              className={`flex-1 py-2 px-2 rounded-lg text-sm font-medium transition ${
+                leaderboardMode === key
+                  ? "bg-[var(--accent)] text-black"
+                  : "text-neutral-400 hover:text-white"
+              }`}
+            >
+              {mode.emoji}
+            </button>
+          ))}
+        </div>
+        <p className="text-xs text-neutral-500">
+          {GAME_MODES[leaderboardMode].emoji} {GAME_MODES[leaderboardMode].name}
+        </p>
+
         {loadingLeaderboard ? (
           <p className="text-neutral-400">Chargement...</p>
         ) : leaderboard.length === 0 ? (
           <div className="text-center text-neutral-400">
-            <p>Aucun score pour l'instant.</p>
+            <p>Aucun score pour l&apos;instant.</p>
             <p className="text-sm mt-2">Sois le premier à jouer !</p>
           </div>
         ) : (
@@ -428,7 +469,9 @@ export default function Solo() {
         {lastKeyword && (
           <div className="text-center bg-red-500/20 border border-red-500 rounded-xl p-3 w-full max-w-sm">
             <p className="text-neutral-400 text-sm">
-              {gameMode === "cinema" ? "Le film était :" : "La réponse était :"}
+              {gameMode === "cinema" ? "Le film était :" 
+                : gameMode === "sport" ? "La réponse était :" 
+                : "La réponse était :"}
             </p>
             <p className="text-white font-bold text-lg">{lastKeyword}</p>
           </div>
@@ -436,7 +479,7 @@ export default function Solo() {
         
         <div className="text-center space-y-2">
           <p className="text-neutral-400">
-            Score de {pseudo} ({gameMode === "cinema" ? "🎬 Cinéma" : "📝 Classique"})
+            Score de {pseudo} ({GAME_MODES[gameMode].emoji} {GAME_MODES[gameMode].name})
           </p>
           <p className="text-5xl font-bold text-[var(--accent)]">{score}</p>
           {isNewBest && (
@@ -496,7 +539,7 @@ export default function Solo() {
             <span className="text-neutral-600">{"🖤".repeat(MAX_LIVES - lives)}</span>
           </p>
           <p className="text-xs text-neutral-500">
-            {gameMode === "cinema" ? "🎬 Cinéma" : "📝 Classique"}
+            {GAME_MODES[gameMode].emoji} {GAME_MODES[gameMode].name}
           </p>
         </div>
         <div className="text-right">
@@ -509,6 +552,8 @@ export default function Solo() {
       <div className="text-center mb-2">
         {gameMode === "cinema" ? (
           <p className="text-lg font-semibold text-neutral-300">🎬 Trouve le film !</p>
+        ) : gameMode === "sport" ? (
+          <p className="text-lg font-semibold text-neutral-300">⚽ Trouve le sport / athlète / équipe !</p>
         ) : (
           <p className="text-lg font-semibold text-neutral-300">Quelque chose qui…</p>
         )}
@@ -568,7 +613,11 @@ export default function Solo() {
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && checkAnswer()}
-              placeholder={gameMode === "cinema" ? "Titre du film..." : "Ta réponse..."}
+              placeholder={
+                gameMode === "cinema" ? "Titre du film..." 
+                : gameMode === "sport" ? "Sport / Athlète / Équipe..."
+                : "Ta réponse..."
+              }
               className={`flex-1 py-2.5 px-3 rounded-lg bg-[var(--card)] border text-white placeholder-neutral-500 focus:outline-none transition ${
                 feedback === "wrong" 
                   ? "border-red-500 focus:border-red-500" 
@@ -613,11 +662,11 @@ export default function Solo() {
               <>
                 <p className="text-red-400 font-bold">Passé !</p>
                 <p className="text-neutral-300 text-sm mt-1">
-                  Réponse : <span className="font-bold text-white">{gameMode === "cinema" ? card.regle : keyword}</span>
+                  Réponse : <span className="font-bold text-white">{gameMode === "classique" ? keyword : card.regle}</span>
                 </p>
               </>
             )}
-            {gameMode !== "cinema" && (
+            {gameMode === "classique" && (
               <p className="text-neutral-500 text-xs mt-1">{card.regle}</p>
             )}
           </div>

@@ -66,7 +66,11 @@ export default function Regles() {
           <ul className="list-disc list-inside space-y-2">
             <li><strong>📝 Classique</strong> : Trouve le mot-clé de la règle (ex: &quot;brille&quot; pour &quot;Quelque chose qui brille&quot;).</li>
             <li><strong>🎬 Cinéma</strong> : Trouve le titre du film à partir des indices. Le titre peut être en <strong>français ou en anglais</strong> (ex: &quot;Inception&quot;, &quot;Le Parrain&quot;). Une tolérance d&apos;erreur est appliquée pour les titres complexes.</li>
+            <li><strong>⚽ Sport</strong> : Trouve le sport, l&apos;athlète ou l&apos;équipe à partir des indices (ex: &quot;Messi&quot;, &quot;Tennis&quot;, &quot;Real Madrid&quot;).</li>
           </ul>
+          <p className="text-sm text-neutral-500 mt-3">
+            Chaque mode possède son propre <strong>classement mondial</strong> séparé !
+          </p>
         </div>
 
         <div>
