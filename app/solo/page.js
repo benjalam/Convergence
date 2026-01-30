@@ -68,11 +68,12 @@ function isAnswerClose(userAnswer, correctAnswer) {
   return false;
 }
 
+const MAX_LIVES = 5;
+
 export default function Solo() {
   const [phase, setPhase] = useState("config"); // "config", "playing", "gameover", "leaderboard"
   const [pseudo, setPseudo] = useState("");
-  const [maxLives, setMaxLives] = useState(10);
-  const [lives, setLives] = useState(10);
+  const [lives, setLives] = useState(MAX_LIVES);
   const [deck, setDeck] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [revealedCount, setRevealedCount] = useState(0);
@@ -147,7 +148,7 @@ export default function Solo() {
     setRevealedCount(0);
     setAnswer("");
     setFeedback(null);
-    setLives(maxLives);
+    setLives(MAX_LIVES);
     setScore(0);
     setMyRank(null);
     setPhase("playing");
@@ -240,29 +241,11 @@ export default function Solo() {
           </div>
         )}
 
-        <div className="w-full max-w-sm">
-          <label className="block text-sm font-medium text-neutral-400 mb-3 text-center">
-            Nombre de vies
-          </label>
-          <div className="flex gap-2">
-            {[5, 10, 15].map((n) => (
-              <button
-                key={n}
-                type="button"
-                onClick={() => setMaxLives(n)}
-                className={`flex-1 py-4 rounded-xl font-semibold text-lg transition touch-manipulation ${
-                  maxLives === n
-                    ? "bg-[var(--accent)] text-black"
-                    : "bg-[var(--card)] border border-neutral-600 text-neutral-300 hover:border-[var(--accent)]"
-                }`}
-              >
-                {n} ❤️
-              </button>
-            ))}
-          </div>
-        </div>
+        <p className="text-neutral-400 text-center">
+          Tu as <span className="font-bold text-white">5 ❤️</span> pour faire le meilleur score !
+        </p>
 
-        <div className="flex flex-col gap-3 w-full max-w-sm mt-2">
+        <div className="flex flex-col gap-3 w-full max-w-sm">
           <button
             type="button"
             onClick={startGame}
@@ -413,7 +396,7 @@ export default function Solo() {
         <div>
           <p className="text-lg font-bold">
             {"❤️".repeat(lives)}
-            <span className="text-neutral-600">{"🖤".repeat(maxLives - lives)}</span>
+            <span className="text-neutral-600">{"🖤".repeat(MAX_LIVES - lives)}</span>
           </p>
         </div>
         <div className="text-right">
