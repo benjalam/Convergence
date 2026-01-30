@@ -69,11 +69,13 @@ function isAnswerClose(userAnswer, correctAnswer) {
 }
 
 const MAX_LIVES = 5;
+const POINTS = [15, 12, 10, 8, 6, 4, 2, 1]; // Points selon le nombre de mots révélés
 
 export default function Solo() {
   const [phase, setPhase] = useState("config"); // "config", "playing", "gameover", "leaderboard"
   const [pseudo, setPseudo] = useState("");
   const [lives, setLives] = useState(MAX_LIVES);
+  const [lastPoints, setLastPoints] = useState(0); // Points gagnés sur la dernière carte
   const [deck, setDeck] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [revealedCount, setRevealedCount] = useState(0);
@@ -166,9 +168,14 @@ export default function Solo() {
     const isCorrect = isAnswerClose(answer, keyword);
 
     if (isCorrect) {
+      // Points basés sur le nombre de mots révélés (0 = pas encore révélé = 15pts bonus)
+      const wordIndex = Math.max(0, revealedCount - 1);
+      const pts = POINTS[wordIndex] || 1;
+      setLastPoints(pts);
       setFeedback("correct");
-      setScore((s) => s + 1);
+      setScore((s) => s + pts);
     } else {
+      setLastPoints(0);
       setFeedback("incorrect");
       const newLives = lives - 1;
       setLives(newLives);
@@ -184,6 +191,7 @@ export default function Solo() {
     setRevealedCount(0);
     setAnswer("");
     setFeedback(null);
+    setLastPoints(0);
     if (currentIndex + 1 >= deck.length) {
       setDeck(shuffle(cartesData));
       setCurrentIndex(0);
@@ -437,14 +445,19 @@ export default function Solo() {
       {/* Zone de réponse */}
       {feedback === null ? (
         <div className="flex-shrink-0 space-y-2">
-          <button
-            type="button"
-            onClick={revealNext}
-            disabled={revealedCount >= 8}
-            className="w-full py-2.5 rounded-lg font-medium bg-[var(--card)] border border-neutral-600 text-neutral-300 hover:border-[var(--accent)] disabled:opacity-40 disabled:cursor-not-allowed transition touch-manipulation"
-          >
-            {revealedCount >= 8 ? "Tous les mots révélés" : `Révéler le mot ${revealedCount + 1}`}
-          </button>
+          <div className="flex gap-2 items-center">
+            <button
+              type="button"
+              onClick={revealNext}
+              disabled={revealedCount >= 8}
+              className="flex-1 py-2.5 rounded-lg font-medium bg-[var(--card)] border border-neutral-600 text-neutral-300 hover:border-[var(--accent)] disabled:opacity-40 disabled:cursor-not-allowed transition touch-manipulation"
+            >
+              {revealedCount >= 8 ? "Tous révélés" : `Révéler mot ${revealedCount + 1}`}
+            </button>
+            <span className="text-sm text-neutral-500 w-16 text-right">
+              {POINTS[Math.max(0, revealedCount - 1)] || 1} pts
+            </span>
+          </div>
 
           <div className="flex gap-2">
             <input
@@ -483,7 +496,12 @@ export default function Solo() {
             }`}
           >
             {feedback === "correct" ? (
-              <p className="text-green-400 font-bold">Bravo !</p>
+              <>
+                <p className="text-green-400 font-bold text-lg">Bravo ! +{lastPoints} pts</p>
+                <p className="text-neutral-400 text-xs mt-1">
+                  {revealedCount <= 1 ? "Sans indice !" : `Trouvé au mot ${revealedCount}`}
+                </p>
+              </>
             ) : (
               <>
                 <p className="text-red-400 font-bold">{feedback === "gaveup" ? "Passé !" : "Raté !"}</p>
