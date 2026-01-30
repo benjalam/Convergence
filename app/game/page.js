@@ -229,10 +229,14 @@ export default function Game() {
 
       {card && (
         <>
-          <div className="rounded-xl bg-[var(--card)] border border-neutral-700 p-3 mb-2">
-            <p className="text-xs text-neutral-400 mb-1">Règle à deviner</p>
-            <p className="text-lg font-bold">{card.regle}</p>
+          <div className="rounded-xl bg-gradient-to-r from-amber-500/20 to-yellow-500/10 border-2 border-[var(--accent)] p-4 mb-3">
+            <p className="text-xs text-[var(--accent)] font-semibold uppercase tracking-wide mb-1">Règle à deviner</p>
+            <p className="text-xl font-bold text-white">{card.regle}</p>
           </div>
+
+          <p className="text-xs text-neutral-400 mb-2 text-center">
+            Lis les mots un par un jusqu'à ce que ton équipe trouve
+          </p>
 
           <div className="flex-1 overflow-y-auto mb-2">
             <div className="grid grid-cols-1 gap-1.5">
