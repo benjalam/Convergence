@@ -13,7 +13,7 @@ function shuffle(arr) {
   return a;
 }
 
-// Extrait le mot-clé de la règle (ex: "Quelque chose qui brille" -> "brille")
+// Extrait le mot-clé de la règle
 function extractKeyword(regle) {
   const cleaned = regle
     .replace(/^Quelque chose qui s'/i, "")
@@ -24,7 +24,7 @@ function extractKeyword(regle) {
   return cleaned;
 }
 
-// Normalise une chaîne pour comparaison (sans accents, minuscules)
+// Normalise une chaîne pour comparaison
 function normalize(str) {
   return str
     .toLowerCase()
@@ -34,7 +34,7 @@ function normalize(str) {
     .trim();
 }
 
-// Calcule la distance de Levenshtein entre deux chaînes
+// Distance de Levenshtein
 function levenshtein(a, b) {
   const matrix = Array(b.length + 1).fill(null).map(() => Array(a.length + 1).fill(null));
   for (let i = 0; i <= a.length; i++) matrix[0][i] = i;
@@ -52,46 +52,85 @@ function levenshtein(a, b) {
   return matrix[b.length][a.length];
 }
 
-// Vérifie si la réponse est acceptable (tolérant aux fautes)
+// Vérifie si la réponse est acceptable
 function isAnswerClose(userAnswer, correctAnswer) {
   const normUser = normalize(userAnswer);
   const normCorrect = normalize(correctAnswer);
   
-  // Exact match
   if (normUser === normCorrect) return true;
-  
-  // L'un contient l'autre
   if (normCorrect.includes(normUser) && normUser.length >= 3) return true;
   if (normUser.includes(normCorrect)) return true;
   
-  // Distance de Levenshtein (tolérance selon la longueur)
   const distance = levenshtein(normUser, normCorrect);
-  const maxDistance = Math.max(1, Math.floor(normCorrect.length / 4)); // 25% de tolérance
+  const maxDistance = Math.max(1, Math.floor(normCorrect.length / 4));
   if (distance <= maxDistance) return true;
   
   return false;
 }
 
 export default function Solo() {
-  const [phase, setPhase] = useState("config"); // "config", "playing", "gameover"
+  const [phase, setPhase] = useState("config"); // "config", "playing", "gameover", "leaderboard"
+  const [pseudo, setPseudo] = useState("");
   const [maxLives, setMaxLives] = useState(10);
   const [lives, setLives] = useState(10);
   const [deck, setDeck] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [revealedCount, setRevealedCount] = useState(0);
   const [answer, setAnswer] = useState("");
-  const [feedback, setFeedback] = useState(null); // null, "correct", "incorrect"
+  const [feedback, setFeedback] = useState(null);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [myRank, setMyRank] = useState(null);
+  const [loadingLeaderboard, setLoadingLeaderboard] = useState(false);
 
   const card = deck[currentIndex];
   const keyword = card ? extractKeyword(card.regle) : "";
 
-  // Charger le meilleur score depuis localStorage
+  // Charger pseudo et meilleur score depuis localStorage
   useEffect(() => {
-    const saved = localStorage.getItem("convergence_solo_best");
-    if (saved) setBestScore(parseInt(saved, 10) || 0);
+    const savedPseudo = localStorage.getItem("convergence_solo_pseudo");
+    const savedBest = localStorage.getItem("convergence_solo_best");
+    if (savedPseudo) setPseudo(savedPseudo);
+    if (savedBest) setBestScore(parseInt(savedBest, 10) || 0);
   }, []);
+
+  // Charger le leaderboard
+  const fetchLeaderboard = async () => {
+    setLoadingLeaderboard(true);
+    try {
+      const res = await fetch("/api/leaderboard");
+      const data = await res.json();
+      setLeaderboard(data.leaderboard || []);
+    } catch (e) {
+      console.error("Erreur chargement leaderboard:", e);
+    }
+    setLoadingLeaderboard(false);
+  };
+
+  // Soumettre le score au leaderboard
+  const submitScore = async (finalScore) => {
+    if (!pseudo.trim()) return;
+    
+    try {
+      const res = await fetch("/api/leaderboard", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pseudo: pseudo.trim(), score: finalScore }),
+      });
+      const data = await res.json();
+      if (data.rank) setMyRank(data.rank);
+    } catch (e) {
+      console.error("Erreur soumission score:", e);
+    }
+  };
+
+  // Sauvegarder le pseudo
+  useEffect(() => {
+    if (pseudo) {
+      localStorage.setItem("convergence_solo_pseudo", pseudo);
+    }
+  }, [pseudo]);
 
   // Sauvegarder le meilleur score
   useEffect(() => {
@@ -102,6 +141,7 @@ export default function Solo() {
   }, [score, bestScore]);
 
   const startGame = () => {
+    if (!pseudo.trim()) return;
     setDeck(shuffle(cartesData));
     setCurrentIndex(0);
     setRevealedCount(0);
@@ -109,6 +149,7 @@ export default function Solo() {
     setFeedback(null);
     setLives(maxLives);
     setScore(0);
+    setMyRank(null);
     setPhase("playing");
   };
 
@@ -131,6 +172,7 @@ export default function Solo() {
       const newLives = lives - 1;
       setLives(newLives);
       if (newLives <= 0) {
+        submitScore(score);
         setPhase("gameover");
         return;
       }
@@ -154,8 +196,14 @@ export default function Solo() {
     const newLives = lives - 1;
     setLives(newLives);
     if (newLives <= 0) {
+      submitScore(score);
       setPhase("gameover");
     }
+  };
+
+  const showLeaderboard = () => {
+    fetchLeaderboard();
+    setPhase("leaderboard");
   };
 
   // Écran de configuration
@@ -171,9 +219,23 @@ export default function Solo() {
           <p className="text-neutral-400">Trouve un maximum de règles !</p>
         </div>
 
+        <div className="w-full max-w-sm">
+          <label className="block text-sm font-medium text-neutral-400 mb-2">
+            Ton pseudo
+          </label>
+          <input
+            type="text"
+            value={pseudo}
+            onChange={(e) => setPseudo(e.target.value.slice(0, 20))}
+            placeholder="Entre ton pseudo..."
+            maxLength={20}
+            className="w-full py-3 px-4 rounded-xl bg-[var(--card)] border border-neutral-600 text-white placeholder-neutral-500 focus:border-[var(--accent)] focus:outline-none text-center text-lg"
+          />
+        </div>
+
         {bestScore > 0 && (
           <div className="text-center">
-            <p className="text-sm text-neutral-500">Meilleur score</p>
+            <p className="text-sm text-neutral-500">Ton meilleur score</p>
             <p className="text-2xl font-bold text-[var(--accent)]">{bestScore}</p>
           </div>
         )}
@@ -200,12 +262,88 @@ export default function Solo() {
           </div>
         </div>
 
+        <div className="flex flex-col gap-3 w-full max-w-sm mt-2">
+          <button
+            type="button"
+            onClick={startGame}
+            disabled={!pseudo.trim()}
+            className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            Commencer
+          </button>
+          <button
+            type="button"
+            onClick={showLeaderboard}
+            className="btn-secondary"
+          >
+            🏆 Classement mondial
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  // Écran du leaderboard
+  if (phase === "leaderboard") {
+    return (
+      <main className="min-h-screen p-6 flex flex-col items-center gap-6">
+        <div className="w-full max-w-sm flex items-center justify-between">
+          <button
+            onClick={() => setPhase("config")}
+            className="text-neutral-400 hover:text-[var(--accent)] transition text-sm"
+          >
+            ← Retour
+          </button>
+          <button
+            onClick={fetchLeaderboard}
+            className="text-neutral-400 hover:text-[var(--accent)] transition text-sm"
+          >
+            🔄 Actualiser
+          </button>
+        </div>
+
+        <h1 className="text-2xl font-bold">🏆 Classement mondial</h1>
+
+        {loadingLeaderboard ? (
+          <p className="text-neutral-400">Chargement...</p>
+        ) : leaderboard.length === 0 ? (
+          <div className="text-center text-neutral-400">
+            <p>Aucun score pour l'instant.</p>
+            <p className="text-sm mt-2">Sois le premier à jouer !</p>
+          </div>
+        ) : (
+          <ul className="w-full max-w-sm space-y-2">
+            {leaderboard.slice(0, 20).map((entry, i) => {
+              const isMe = entry.pseudo.toLowerCase() === pseudo.toLowerCase();
+              const medal = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `${i + 1}.`;
+              return (
+                <li
+                  key={i}
+                  className={`flex justify-between items-center py-3 px-4 rounded-xl border ${
+                    isMe
+                      ? "bg-[var(--accent)]/20 border-[var(--accent)]"
+                      : "bg-[var(--card)] border-neutral-700"
+                  }`}
+                >
+                  <span className={isMe ? "font-bold" : ""}>
+                    <span className="mr-2">{medal}</span>
+                    {entry.pseudo}
+                  </span>
+                  <span className={`font-bold ${isMe ? "text-[var(--accent)]" : ""}`}>
+                    {entry.score} pts
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+
         <button
           type="button"
-          onClick={startGame}
-          className="btn-primary mt-4"
+          onClick={() => setPhase("config")}
+          className="btn-primary w-full max-w-sm mt-4"
         >
-          Commencer
+          Jouer
         </button>
       </main>
     );
@@ -219,10 +357,15 @@ export default function Solo() {
         <h1 className="text-3xl font-bold">Game Over</h1>
         
         <div className="text-center space-y-2">
-          <p className="text-neutral-400">Ton score</p>
+          <p className="text-neutral-400">Score de {pseudo}</p>
           <p className="text-5xl font-bold text-[var(--accent)]">{score}</p>
           {isNewBest && (
-            <p className="text-green-400 font-semibold">Nouveau record !</p>
+            <p className="text-green-400 font-semibold">🎉 Nouveau record personnel !</p>
+          )}
+          {myRank && (
+            <p className="text-neutral-300">
+              Tu es <span className="font-bold text-[var(--accent)]">#{myRank}</span> mondial !
+            </p>
           )}
         </div>
 
@@ -238,6 +381,13 @@ export default function Solo() {
             className="btn-primary"
           >
             Rejouer
+          </button>
+          <button
+            type="button"
+            onClick={showLeaderboard}
+            className="btn-secondary"
+          >
+            🏆 Voir le classement
           </button>
           <Link href="/" className="btn-secondary text-center block">
             Accueil
@@ -268,7 +418,7 @@ export default function Solo() {
         </div>
         <div className="text-right">
           <p className="text-xl font-bold text-[var(--accent)]">{score}</p>
-          <p className="text-xs text-neutral-500">Record : {bestScore}</p>
+          <p className="text-xs text-neutral-500">{pseudo}</p>
         </div>
       </div>
 
