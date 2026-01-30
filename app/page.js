@@ -3,92 +3,50 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-// Composant Logo animé
+// Composant Logo animé - Style décalé (yin-yang)
 function ConvergenceLogo({ animate = false, size = 120 }) {
   return (
     <svg
       width={size}
-      height={size}
-      viewBox="0 0 100 100"
+      height={size * 1.2}
+      viewBox="0 0 100 120"
       className="overflow-visible"
     >
-      {/* Demi-cercle gauche */}
-      <g
-        className={`origin-center ${
-          animate ? "animate-converge-left" : ""
-        }`}
-      >
+      {/* Arc supérieur gauche - commence en haut à gauche, descend vers le centre */}
+      <g className={animate ? "animate-converge-top" : ""}>
         <path
-          d="M 50 10 A 40 40 0 0 0 50 90"
+          d="M 50 15 A 35 35 0 0 0 15 50"
           fill="none"
-          stroke="url(#gradient-left)"
-          strokeWidth="4"
+          stroke="url(#gradient-arc)"
+          strokeWidth="5"
           strokeLinecap="round"
         />
       </g>
 
-      {/* Demi-cercle droit */}
-      <g
-        className={`origin-center ${
-          animate ? "animate-converge-right" : ""
-        }`}
-      >
+      {/* Arc inférieur droit - commence au centre, descend vers le bas à droite */}
+      <g className={animate ? "animate-converge-bottom" : ""}>
         <path
-          d="M 50 10 A 40 40 0 0 1 50 90"
+          d="M 50 70 A 35 35 0 0 0 85 105"
           fill="none"
-          stroke="url(#gradient-right)"
-          strokeWidth="4"
+          stroke="url(#gradient-arc)"
+          strokeWidth="5"
           strokeLinecap="round"
         />
       </g>
 
-      {/* Pointillés du haut */}
+      {/* Pointillés centraux verticaux */}
       <g className={animate ? "animate-dots-appear" : ""}>
-        <line
-          x1="50"
-          y1="8"
-          x2="50"
-          y2="25"
-          stroke="#fbbf24"
-          strokeWidth="3"
-          strokeDasharray="4 4"
-          strokeLinecap="round"
-          className="opacity-80"
-        />
+        <circle cx="50" cy="28" r="3" fill="#f97316" className="opacity-90" />
+        <circle cx="50" cy="42" r="3" fill="#f97316" className="opacity-90" />
+        <circle cx="50" cy="56" r="3" fill="#f97316" className="opacity-90" />
+        <circle cx="50" cy="70" r="3" fill="#f97316" className="opacity-90" />
       </g>
-
-      {/* Pointillés du bas */}
-      <g className={animate ? "animate-dots-appear" : ""}>
-        <line
-          x1="50"
-          y1="75"
-          x2="50"
-          y2="92"
-          stroke="#fbbf24"
-          strokeWidth="3"
-          strokeDasharray="4 4"
-          strokeLinecap="round"
-          className="opacity-80"
-        />
-      </g>
-
-      {/* Point central qui pulse */}
-      <circle
-        cx="50"
-        cy="50"
-        r="4"
-        fill="#fbbf24"
-        className={animate ? "animate-pulse-center" : ""}
-      />
 
       {/* Gradients */}
       <defs>
-        <linearGradient id="gradient-left" x1="0%" y1="0%" x2="0%" y2="100%">
+        <linearGradient id="gradient-arc" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#f97316" />
-          <stop offset="100%" stopColor="#eab308" />
-        </linearGradient>
-        <linearGradient id="gradient-right" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#eab308" />
+          <stop offset="50%" stopColor="#fb923c" />
           <stop offset="100%" stopColor="#f97316" />
         </linearGradient>
       </defs>
@@ -128,15 +86,15 @@ export default function Home() {
 
   return (
     <>
-      {/* Écran de lancement */}
+      {/* Écran de lancement - même fond que la page principale */}
       {showSplash && (
         <div
-          className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 transition-opacity duration-500 ${
+          className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-neutral-950 transition-opacity duration-500 ${
             fadeOut ? "opacity-0" : "opacity-100"
           }`}
         >
-          <div className="flex flex-col items-center gap-6">
-            <ConvergenceLogo animate={true} size={140} />
+          <div className="flex flex-col items-center gap-4">
+            <ConvergenceLogo animate={true} size={120} />
             <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 bg-clip-text text-transparent animate-title-appear">
               Convergence
             </h1>
@@ -181,57 +139,42 @@ export default function Home() {
 
       {/* Styles pour les animations */}
       <style jsx global>{`
-        @keyframes converge-left {
+        @keyframes converge-top {
           0% {
-            transform: translateX(-30px) rotate(-20deg);
+            transform: translate(-40px, -30px) rotate(-30deg);
             opacity: 0;
           }
-          30% {
+          40% {
             opacity: 1;
           }
           100% {
-            transform: translateX(0) rotate(0deg);
+            transform: translate(0, 0) rotate(0deg);
             opacity: 1;
           }
         }
 
-        @keyframes converge-right {
+        @keyframes converge-bottom {
           0% {
-            transform: translateX(30px) rotate(20deg);
+            transform: translate(40px, 30px) rotate(30deg);
             opacity: 0;
           }
-          30% {
+          40% {
             opacity: 1;
           }
           100% {
-            transform: translateX(0) rotate(0deg);
+            transform: translate(0, 0) rotate(0deg);
             opacity: 1;
           }
         }
 
         @keyframes dots-appear {
-          0%, 50% {
-            opacity: 0;
-            transform: scaleY(0);
-          }
-          100% {
-            opacity: 0.8;
-            transform: scaleY(1);
-          }
-        }
-
-        @keyframes pulse-center {
           0%, 60% {
-            transform: scale(0);
             opacity: 0;
-          }
-          80% {
-            transform: scale(1.5);
-            opacity: 1;
+            transform: scale(0);
           }
           100% {
+            opacity: 0.9;
             transform: scale(1);
-            opacity: 1;
           }
         }
 
@@ -240,7 +183,7 @@ export default function Home() {
             opacity: 0;
             transform: translateY(20px);
           }
-          60% {
+          50% {
             opacity: 0;
             transform: translateY(20px);
           }
@@ -250,23 +193,19 @@ export default function Home() {
           }
         }
 
-        .animate-converge-left {
-          animation: converge-left 1.2s ease-out forwards;
+        .animate-converge-top {
+          animation: converge-top 1.2s ease-out forwards;
           transform-origin: center center;
         }
 
-        .animate-converge-right {
-          animation: converge-right 1.2s ease-out forwards;
+        .animate-converge-bottom {
+          animation: converge-bottom 1.2s ease-out forwards;
           transform-origin: center center;
         }
 
         .animate-dots-appear {
-          animation: dots-appear 1.5s ease-out forwards;
+          animation: dots-appear 1.6s ease-out forwards;
           transform-origin: center center;
-        }
-
-        .animate-pulse-center {
-          animation: pulse-center 1.8s ease-out forwards;
         }
 
         .animate-title-appear {
