@@ -212,70 +212,68 @@ export default function Game() {
   }
 
   return (
-    <main className="min-h-screen p-4 pb-8 flex flex-col">
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+    <main className="h-[100dvh] p-3 pb-4 flex flex-col overflow-hidden">
+      <div className="flex items-center justify-between gap-2 mb-2">
         <span className="text-2xl font-mono font-bold tabular-nums text-[var(--accent)]">
           {formatTime(timerSeconds)}
         </span>
         <div className="text-right">
           <p className="text-xs text-neutral-500">
-            Tour {currentRound + 1} / {numRounds}
+            Tour {currentRound + 1} / {numRounds} · {currentTeamName}
           </p>
-          <p className="text-sm text-neutral-400">{currentTeamName}</p>
-          <p className="text-lg font-bold">
-            Score : {scores[currentTeamIndex] ?? 0} pts
+          <p className="text-base font-bold">
+            {scores[currentTeamIndex] ?? 0} pts
           </p>
         </div>
       </div>
 
       {card && (
         <>
-          <div className="rounded-2xl bg-[var(--card)] border border-neutral-700 p-4 mb-4">
-            <p className="text-sm text-neutral-400 mb-1">Règle à deviner</p>
-            <p className="text-xl font-bold">{card.regle}</p>
+          <div className="rounded-xl bg-[var(--card)] border border-neutral-700 p-3 mb-2">
+            <p className="text-xs text-neutral-400 mb-1">Règle à deviner</p>
+            <p className="text-lg font-bold">{card.regle}</p>
           </div>
 
-          <p className="text-sm text-neutral-400 mb-2">
-            Sélectionne le dernier mot utilisé, puis « Trouvé ! » pour valider les points
-          </p>
-          <div className="grid grid-cols-2 gap-2 mb-6">
-            {card.mots.map((mot, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setSelectedIndex(i)}
-                className={`py-3 px-3 rounded-xl font-medium text-left transition touch-manipulation break-words ${
-                  selectedIndex === i
-                    ? "bg-[var(--accent)] text-black"
-                    : "bg-[var(--card)] border border-neutral-600 text-neutral-300 hover:border-neutral-500"
-                }`}
-              >
-                <span className={`text-xs mr-1 ${selectedIndex === i ? "text-black/60" : "text-neutral-500"}`}>
-                  {i + 1}.
-                </span>
-                {mot}
-              </button>
-            ))}
+          <div className="flex-1 overflow-y-auto mb-2">
+            <div className="grid grid-cols-1 gap-1.5">
+              {card.mots.map((mot, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setSelectedIndex(i)}
+                  className={`py-2.5 px-3 rounded-lg font-medium text-left transition touch-manipulation break-words ${
+                    selectedIndex === i
+                      ? "bg-[var(--accent)] text-black"
+                      : "bg-[var(--card)] border border-neutral-600 text-neutral-300 hover:border-neutral-500"
+                  }`}
+                >
+                  <span className={`text-xs mr-1.5 ${selectedIndex === i ? "text-black/60" : "text-neutral-500"}`}>
+                    {i + 1}.
+                  </span>
+                  {mot}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="flex flex-wrap gap-3 mt-auto">
+          <div className="flex gap-2 flex-shrink-0">
             <button
               type="button"
               onClick={found}
               disabled={selectedIndex < 0}
-              className="btn-small flex-1 min-w-[7rem] disabled:opacity-40 disabled:cursor-not-allowed"
+              className="btn-small flex-1 py-2.5 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Trouvé !
             </button>
-            <button type="button" onClick={skip} className="btn-small flex-1 min-w-[7rem]">
+            <button type="button" onClick={skip} className="btn-small flex-1 py-2.5">
               Passer
             </button>
             <button
               type="button"
               onClick={endTurn}
-              className="btn-small flex-1 min-w-[7rem] border-amber-500/50 text-amber-400 hover:border-amber-400 hover:bg-amber-500/10"
+              className="btn-small flex-1 py-2.5 border-amber-500/50 text-amber-400 hover:border-amber-400 hover:bg-amber-500/10"
             >
-              Fin du tour
+              Fin
             </button>
           </div>
         </>
