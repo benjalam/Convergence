@@ -6,7 +6,6 @@ import Link from "next/link";
 import cartesData from "@/data/cartes.json";
 
 const POINTS = [15, 12, 10, 8, 6, 4, 2, 1];
-const DUREE_TOUR = 120;
 
 function shuffle(arr) {
   const a = [...arr];
@@ -32,7 +31,7 @@ export default function Game() {
   const [deck, setDeck] = useState([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const [timerSeconds, setTimerSeconds] = useState(DUREE_TOUR);
+  const [timerSeconds, setTimerSeconds] = useState(0);
   const [phase, setPhase] = useState("playing");
   const [hasMoreCards, setHasMoreCards] = useState(true);
 
@@ -60,6 +59,9 @@ export default function Game() {
       setDeck(initialDeck);
       setCurrentCardIndex(0);
       setHasMoreCards(initialDeck.length > 0);
+      // Initialise le chrono avec la durée choisie (fallback 120s)
+      const duration = typeof c.turnDuration === "number" ? c.turnDuration : 120;
+      setTimerSeconds(duration);
     } catch {
       router.replace("/config");
     }
@@ -116,7 +118,9 @@ export default function Game() {
 
   const passToNextTeam = () => {
     setTurnScore(0);
-    setTimerSeconds(DUREE_TOUR);
+    // Réinitialise le chrono avec la durée configurée (fallback 120s)
+    const duration = typeof config?.turnDuration === "number" ? config.turnDuration : 120;
+    setTimerSeconds(duration);
     setSelectedIndex(-1);
     // Si plus de cartes disponibles, on termine la partie
     if (!hasMoreCards) {

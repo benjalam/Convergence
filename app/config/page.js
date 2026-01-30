@@ -9,6 +9,7 @@ export default function Config() {
   const [numTeams, setNumTeams] = useState(2);
   const [teamNames, setTeamNames] = useState(["Équipe 1", "Équipe 2"]);
   const [numRounds, setNumRounds] = useState(2);
+   const [turnDuration, setTurnDuration] = useState(120); // en secondes
 
   const updateTeams = (n) => {
     const next = Math.min(4, Math.max(2, n));
@@ -34,6 +35,7 @@ export default function Config() {
       numTeams,
       teamNames: teamNames.slice(0, numTeams),
       numRounds,
+      turnDuration,
     };
     localStorage.setItem("convergence_config", JSON.stringify(config));
     router.push("/game");
@@ -111,6 +113,33 @@ export default function Config() {
                 }`}
               >
                 {n}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-neutral-400 mb-2">
+            Durée d&apos;un tour
+          </label>
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { label: "30 secondes", value: 30 },
+              { label: "1 minute", value: 60 },
+              { label: "2 minutes", value: 120 },
+              { label: "5 minutes", value: 300 },
+            ].map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setTurnDuration(opt.value)}
+                className={`py-3 px-3 rounded-xl font-medium transition touch-manipulation ${
+                  turnDuration === opt.value
+                    ? "bg-[var(--accent)] text-black"
+                    : "bg-[var(--card)] border border-neutral-600 text-neutral-300 hover:border-[var(--accent)]"
+                }`}
+              >
+                {opt.label}
               </button>
             ))}
           </div>
