@@ -110,11 +110,13 @@ export default function Game() {
   }, [phase, config, timerSeconds]);
 
   useEffect(() => {
-    if (phase !== "playing" || timerSeconds > 0) return;
+    // Ne déclenche pas la fin de tour tant que config n'est pas chargé
+    // (évite le bug où timerSeconds=0 au démarrage déclenche immédiatement la fin)
+    if (phase !== "playing" || !config || timerSeconds > 0) return;
     // Le temps est écoulé : la carte courante est également consommée
     nextCard();
     setPhase("turnSummary");
-  }, [phase, timerSeconds, nextCard]);
+  }, [phase, config, timerSeconds, nextCard]);
 
   const passToNextTeam = () => {
     setTurnScore(0);
