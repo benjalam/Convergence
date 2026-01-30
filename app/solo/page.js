@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import cartesData from "@/data/cartes.json";
+import dataMotData from "@/data/datamot.json";
+import dataCineData from "@/data/datacine.json";
 
 function shuffle(arr) {
   const a = [...arr];
@@ -13,7 +14,7 @@ function shuffle(arr) {
   return a;
 }
 
-// Extrait le mot-clé de la règle
+// Extrait le mot-clé de la règle (mode classique)
 function extractKeyword(regle) {
   const cleaned = regle
     .replace(/^Quelque chose qui s'/i, "")
@@ -52,7 +53,7 @@ function levenshtein(a, b) {
   return matrix[b.length][a.length];
 }
 
-// Vérifie si la réponse est acceptable
+// Vérifie si la réponse est acceptable (mode classique)
 function isAnswerClose(userAnswer, correctAnswer) {
   const normUser = normalize(userAnswer);
   const normCorrect = normalize(correctAnswer);
@@ -68,11 +69,41 @@ function isAnswerClose(userAnswer, correctAnswer) {
   return false;
 }
 
+// Vérifie si la réponse est acceptable (mode cinéma - tolérance jusqu'à 10 caractères)
+function isMovieAnswerClose(userAnswer, correctAnswer) {
+  const normUser = normalize(userAnswer);
+  const normCorrect = normalize(correctAnswer);
+  
+  if (normUser === normCorrect) return true;
+  if (normCorrect.includes(normUser) && normUser.length >= 3) return true;
+  if (normUser.includes(normCorrect) && normCorrect.length >= 3) return true;
+  
+  const distance = levenshtein(normUser, normCorrect);
+  // Tolérance jusqu'à 10 caractères de différence pour les titres de films
+  if (distance <= 10) return true;
+  
+  return false;
+}
+
 const MAX_LIVES = 5;
 const POINTS = [15, 12, 10, 8, 6, 4, 2, 1]; // Points selon le nombre de mots révélés
 
+const GAME_MODES = {
+  classique: {
+    name: "Classique",
+    description: "Trouve le mot-clé de la règle",
+    data: dataMotData,
+  },
+  cinema: {
+    name: "Cinéma",
+    description: "Trouve le titre du film (en anglais ou français)",
+    data: dataCineData,
+  },
+};
+
 export default function Solo() {
   const [phase, setPhase] = useState("config"); // "config", "playing", "gameover", "leaderboard"
+  const [gameMode, setGameMode] = useState("classique"); // "classique" ou "cinema"
   const [pseudo, setPseudo] = useState("");
   const [lives, setLives] = useState(MAX_LIVES);
   const [lastPoints, setLastPoints] = useState(0); // Points gagnés sur la dernière carte
@@ -89,7 +120,11 @@ export default function Solo() {
   const [lastKeyword, setLastKeyword] = useState(""); // Pour afficher la réponse au game over
 
   const card = deck[currentIndex];
-  const keyword = card ? extractKeyword(card.regle) : "";
+  // En mode cinéma, la réponse est directement le titre du film (regle)
+  // En mode classique, on extrait le mot-clé de "Quelque chose qui..."
+  const keyword = card 
+    ? (gameMode === "cinema" ? card.regle : extractKeyword(card.regle)) 
+    : "";
 
   // Charger pseudo et meilleur score depuis localStorage
   useEffect(() => {
@@ -146,7 +181,8 @@ export default function Solo() {
 
   const startGame = () => {
     if (!pseudo.trim()) return;
-    setDeck(shuffle(cartesData));
+    const modeData = GAME_MODES[gameMode].data;
+    setDeck(shuffle(modeData));
     setCurrentIndex(0);
     setRevealedCount(0);
     setAnswer("");
@@ -166,7 +202,10 @@ export default function Solo() {
   const checkAnswer = () => {
     if (!answer.trim()) return;
 
-    const isCorrect = isAnswerClose(answer, keyword);
+    // Utilise la fonction de validation appropriée selon le mode
+    const isCorrect = gameMode === "cinema" 
+      ? isMovieAnswerClose(answer, keyword)
+      : isAnswerClose(answer, keyword);
 
     if (isCorrect) {
       // Points basés sur le nombre de mots révélés (0 = pas encore révélé = 15pts bonus)
@@ -203,7 +242,8 @@ export default function Solo() {
     setFeedback(null);
     setLastPoints(0);
     if (currentIndex + 1 >= deck.length) {
-      setDeck(shuffle(cartesData));
+      const modeData = GAME_MODES[gameMode].data;
+      setDeck(shuffle(modeData));
       setCurrentIndex(0);
     } else {
       setCurrentIndex((i) => i + 1);
@@ -229,7 +269,7 @@ export default function Solo() {
   // Écran de configuration
   if (phase === "config") {
     return (
-      <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-6">
+      <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-5">
         <Link href="/" className="absolute top-4 left-4 text-neutral-400 hover:text-[var(--accent)] transition text-sm">
           ← Accueil
         </Link>
@@ -251,6 +291,33 @@ export default function Solo() {
             maxLength={20}
             className="w-full py-3 px-4 rounded-xl bg-[var(--card)] border border-neutral-600 text-white placeholder-neutral-500 focus:border-[var(--accent)] focus:outline-none text-center text-lg"
           />
+        </div>
+
+        {/* Sélection du mode de jeu */}
+        <div className="w-full max-w-sm">
+          <label className="block text-sm font-medium text-neutral-400 mb-2">
+            Type de jeu
+          </label>
+          <div className="grid grid-cols-2 gap-2">
+            {Object.entries(GAME_MODES).map(([key, mode]) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setGameMode(key)}
+                className={`py-3 px-4 rounded-xl font-medium text-center transition ${
+                  gameMode === key
+                    ? "bg-[var(--accent)] text-black"
+                    : "bg-[var(--card)] border border-neutral-600 text-neutral-300 hover:border-neutral-500"
+                }`}
+              >
+                <span className="block text-lg">{key === "cinema" ? "🎬" : "📝"}</span>
+                <span className="block text-sm">{mode.name}</span>
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-neutral-500 mt-2 text-center">
+            {GAME_MODES[gameMode].description}
+          </p>
         </div>
 
         {bestScore > 0 && (
@@ -360,13 +427,17 @@ export default function Solo() {
         
         {lastKeyword && (
           <div className="text-center bg-red-500/20 border border-red-500 rounded-xl p-3 w-full max-w-sm">
-            <p className="text-neutral-400 text-sm">La réponse était :</p>
+            <p className="text-neutral-400 text-sm">
+              {gameMode === "cinema" ? "Le film était :" : "La réponse était :"}
+            </p>
             <p className="text-white font-bold text-lg">{lastKeyword}</p>
           </div>
         )}
         
         <div className="text-center space-y-2">
-          <p className="text-neutral-400">Score de {pseudo}</p>
+          <p className="text-neutral-400">
+            Score de {pseudo} ({gameMode === "cinema" ? "🎬 Cinéma" : "📝 Classique"})
+          </p>
           <p className="text-5xl font-bold text-[var(--accent)]">{score}</p>
           {isNewBest && (
             <p className="text-green-400 font-semibold">🎉 Nouveau record personnel !</p>
@@ -424,6 +495,9 @@ export default function Solo() {
             {"❤️".repeat(lives)}
             <span className="text-neutral-600">{"🖤".repeat(MAX_LIVES - lives)}</span>
           </p>
+          <p className="text-xs text-neutral-500">
+            {gameMode === "cinema" ? "🎬 Cinéma" : "📝 Classique"}
+          </p>
         </div>
         <div className="text-right">
           <p className="text-xl font-bold text-[var(--accent)]">{score}</p>
@@ -433,7 +507,11 @@ export default function Solo() {
 
       {/* Instruction */}
       <div className="text-center mb-2">
-        <p className="text-lg font-semibold text-neutral-300">Quelque chose qui…</p>
+        {gameMode === "cinema" ? (
+          <p className="text-lg font-semibold text-neutral-300">🎬 Trouve le film !</p>
+        ) : (
+          <p className="text-lg font-semibold text-neutral-300">Quelque chose qui…</p>
+        )}
       </div>
 
       {/* Liste des mots */}
@@ -490,7 +568,7 @@ export default function Solo() {
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && checkAnswer()}
-              placeholder="Ta réponse..."
+              placeholder={gameMode === "cinema" ? "Titre du film..." : "Ta réponse..."}
               className={`flex-1 py-2.5 px-3 rounded-lg bg-[var(--card)] border text-white placeholder-neutral-500 focus:outline-none transition ${
                 feedback === "wrong" 
                   ? "border-red-500 focus:border-red-500" 
@@ -535,11 +613,13 @@ export default function Solo() {
               <>
                 <p className="text-red-400 font-bold">Passé !</p>
                 <p className="text-neutral-300 text-sm mt-1">
-                  Réponse : <span className="font-bold text-white">{keyword}</span>
+                  Réponse : <span className="font-bold text-white">{gameMode === "cinema" ? card.regle : keyword}</span>
                 </p>
               </>
             )}
-            <p className="text-neutral-500 text-xs mt-1">{card.regle}</p>
+            {gameMode !== "cinema" && (
+              <p className="text-neutral-500 text-xs mt-1">{card.regle}</p>
+            )}
           </div>
 
           <button

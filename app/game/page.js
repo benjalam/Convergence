@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import cartesData from "@/data/cartes.json";
+import cartesData from "@/data/datamot.json";
 
 const POINTS = [15, 12, 10, 8, 6, 4, 2, 1];
 

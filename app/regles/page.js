@@ -62,11 +62,19 @@ export default function Regles() {
         </div>
 
         <div>
+          <h3 className="text-lg font-semibold text-white mb-2">Types de jeu</h3>
+          <ul className="list-disc list-inside space-y-2">
+            <li><strong>📝 Classique</strong> : Trouve le mot-clé de la règle (ex: &quot;brille&quot; pour &quot;Quelque chose qui brille&quot;).</li>
+            <li><strong>🎬 Cinéma</strong> : Trouve le titre du film à partir des indices. Le titre peut être en <strong>français ou en anglais</strong> (ex: &quot;Inception&quot;, &quot;Le Parrain&quot;). Une tolérance d&apos;erreur est appliquée pour les titres complexes.</li>
+          </ul>
+        </div>
+
+        <div>
           <h3 className="text-lg font-semibold text-white mb-2">Déroulement</h3>
           <ul className="list-disc list-inside space-y-2">
             <li>Les 8 mots sont <strong>cachés</strong> au départ.</li>
             <li>Clique sur <strong>&quot;Révéler&quot;</strong> pour découvrir les mots un par un.</li>
-            <li>Tape ta réponse (juste la fin de la règle, ex: &quot;brille&quot;, &quot;coule&quot;, &quot;pique&quot;).</li>
+            <li>Tape ta réponse et valide.</li>
             <li><strong>Bonne réponse</strong> : tu gagnes des points selon le nombre de mots révélés.</li>
             <li><strong>Mauvaise réponse</strong> : tu perds 1 vie, mais tu peux continuer.</li>
             <li><strong>Je passe</strong> : tu abandonnes la carte et perds 1 vie.</li>
