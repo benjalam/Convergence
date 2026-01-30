@@ -13,7 +13,10 @@ export default function Home() {
       </div>
       <div className="flex flex-col gap-4 w-full max-w-sm">
         <Link href="/config" className="btn-primary text-center block">
-          Lancer une partie
+          Mode Équipes
+        </Link>
+        <Link href="/solo" className="btn-primary text-center block">
+          Mode Solo
         </Link>
         <Link
           href="/regles"
