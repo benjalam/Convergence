@@ -19,6 +19,12 @@ export default function AdminPage() {
   const [isAddingNew, setIsAddingNew] = useState(false);
   const [newEntry, setNewEntry] = useState({ regle: "", mots: ["", "", "", "", "", "", "", ""] });
   const [message, setMessage] = useState({ type: "", text: "" });
+  const [isLocal, setIsLocal] = useState(false);
+
+  // Vérifier si on est en local
+  useEffect(() => {
+    setIsLocal(window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
+  }, []);
 
   // Charger les données
   const fetchData = useCallback(async () => {
@@ -176,6 +182,36 @@ export default function AdminPage() {
           </Link>
         </div>
 
+        {/* Avertissement mode production / confirmation mode local */}
+        {!isLocal ? (
+          <div className="mb-6 p-4 bg-amber-500/20 border border-amber-500 rounded-xl">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">⚠️</span>
+              <div>
+                <p className="font-bold text-amber-400">Mode lecture seule</p>
+                <p className="text-sm text-amber-200/80 mt-1">
+                  Les modifications ne sont pas possibles en production (Vercel). 
+                  Pour modifier les données, lance le serveur en local avec <code className="bg-black/30 px-1 rounded">npm run dev</code> 
+                  puis accède à <code className="bg-black/30 px-1 rounded">localhost:3000/admin</code>
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="mb-6 p-4 bg-green-500/20 border border-green-500 rounded-xl">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">✅</span>
+              <div>
+                <p className="font-bold text-green-400">Mode édition activé</p>
+                <p className="text-sm text-green-200/80 mt-1">
+                  Tu es en mode local. Les modifications seront enregistrées dans les fichiers JSON.
+                  N'oublie pas de <code className="bg-black/30 px-1 rounded">git commit</code> et <code className="bg-black/30 px-1 rounded">git push</code> pour déployer tes changements.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Message */}
         {message.text && (
           <div
@@ -234,11 +270,20 @@ export default function AdminPage() {
           />
           <button
             onClick={() => {
+              if (!isLocal) {
+                showMessage("error", "Modifications impossibles en production. Utilise le mode local.");
+                return;
+              }
               setIsAddingNew(true);
               setEditingEntry(null);
               setNewEntry({ regle: "", mots: ["", "", "", "", "", "", "", ""] });
             }}
-            className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg font-bold hover:opacity-90 transition"
+            disabled={!isLocal}
+            className={`px-6 py-3 rounded-lg font-bold transition ${
+              isLocal 
+                ? "bg-gradient-to-r from-green-500 to-emerald-500 hover:opacity-90" 
+                : "bg-gray-600 cursor-not-allowed opacity-50"
+            }`}
           >
             ➕ Ajouter
           </button>
@@ -387,16 +432,36 @@ export default function AdminPage() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => {
+                        if (!isLocal) {
+                          showMessage("error", "Modifications impossibles en production. Utilise le mode local.");
+                          return;
+                        }
                         startEdit(entry);
                         setIsAddingNew(false);
                       }}
-                      className="px-4 py-2 bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400 rounded-lg transition"
+                      disabled={!isLocal}
+                      className={`px-4 py-2 rounded-lg transition ${
+                        isLocal
+                          ? "bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400"
+                          : "bg-gray-600/30 text-gray-500 cursor-not-allowed"
+                      }`}
                     >
                       ✏️ Modifier
                     </button>
                     <button
-                      onClick={() => handleDelete(entry.id)}
-                      className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition"
+                      onClick={() => {
+                        if (!isLocal) {
+                          showMessage("error", "Modifications impossibles en production. Utilise le mode local.");
+                          return;
+                        }
+                        handleDelete(entry.id);
+                      }}
+                      disabled={!isLocal}
+                      className={`px-4 py-2 rounded-lg transition ${
+                        isLocal
+                          ? "bg-red-500/20 hover:bg-red-500/30 text-red-400"
+                          : "bg-gray-600/30 text-gray-500 cursor-not-allowed"
+                      }`}
                     >
                       🗑️ Supprimer
                     </button>
