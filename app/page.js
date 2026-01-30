@@ -3,19 +3,20 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-// Composant Logo animé - Style décalé (yin-yang)
+// Composant Logo animé - Style yin-yang comme sur le dessin
 function ConvergenceLogo({ animate = false, size = 120 }) {
   return (
     <svg
       width={size}
-      height={size * 1.2}
-      viewBox="0 0 100 120"
+      height={size * 1.3}
+      viewBox="0 0 100 130"
       className="overflow-visible"
     >
-      {/* Arc supérieur gauche - commence en haut à gauche, descend vers le centre */}
+      {/* Arc du haut - forme de C ouvert vers la droite, en haut à gauche */}
       <g className={animate ? "animate-converge-top" : ""}>
         <path
-          d="M 50 15 A 35 35 0 0 0 15 50"
+          d="M 35 10 
+             C 10 10, 10 55, 35 55"
           fill="none"
           stroke="url(#gradient-arc)"
           strokeWidth="5"
@@ -23,10 +24,11 @@ function ConvergenceLogo({ animate = false, size = 120 }) {
         />
       </g>
 
-      {/* Arc inférieur droit - commence au centre, descend vers le bas à droite */}
+      {/* Arc du bas - forme de C ouvert vers la gauche, en bas à droite */}
       <g className={animate ? "animate-converge-bottom" : ""}>
         <path
-          d="M 50 70 A 35 35 0 0 0 85 105"
+          d="M 65 75 
+             C 90 75, 90 120, 65 120"
           fill="none"
           stroke="url(#gradient-arc)"
           strokeWidth="5"
@@ -34,12 +36,12 @@ function ConvergenceLogo({ animate = false, size = 120 }) {
         />
       </g>
 
-      {/* Pointillés centraux verticaux */}
+      {/* Pointillés centraux verticaux - entre les deux arcs */}
       <g className={animate ? "animate-dots-appear" : ""}>
-        <circle cx="50" cy="28" r="3" fill="#f97316" className="opacity-90" />
-        <circle cx="50" cy="42" r="3" fill="#f97316" className="opacity-90" />
-        <circle cx="50" cy="56" r="3" fill="#f97316" className="opacity-90" />
-        <circle cx="50" cy="70" r="3" fill="#f97316" className="opacity-90" />
+        <circle cx="50" cy="45" r="3.5" fill="#f97316" className="opacity-90" />
+        <circle cx="50" cy="58" r="3.5" fill="#f97316" className="opacity-90" />
+        <circle cx="50" cy="71" r="3.5" fill="#f97316" className="opacity-90" />
+        <circle cx="50" cy="84" r="3.5" fill="#f97316" className="opacity-90" />
       </g>
 
       {/* Gradients */}
@@ -141,28 +143,28 @@ export default function Home() {
       <style jsx global>{`
         @keyframes converge-top {
           0% {
-            transform: translate(-40px, -30px) rotate(-30deg);
+            transform: translate(-50px, -40px);
             opacity: 0;
           }
-          40% {
+          30% {
             opacity: 1;
           }
           100% {
-            transform: translate(0, 0) rotate(0deg);
+            transform: translate(0, 0);
             opacity: 1;
           }
         }
 
         @keyframes converge-bottom {
           0% {
-            transform: translate(40px, 30px) rotate(30deg);
+            transform: translate(50px, 40px);
             opacity: 0;
           }
-          40% {
+          30% {
             opacity: 1;
           }
           100% {
-            transform: translate(0, 0) rotate(0deg);
+            transform: translate(0, 0);
             opacity: 1;
           }
         }
