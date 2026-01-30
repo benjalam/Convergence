@@ -80,12 +80,13 @@ export default function Solo() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [revealedCount, setRevealedCount] = useState(0);
   const [answer, setAnswer] = useState("");
-  const [feedback, setFeedback] = useState(null);
+  const [feedback, setFeedback] = useState(null); // null, "correct", "incorrect", "gaveup", "wrong"
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [leaderboard, setLeaderboard] = useState([]);
   const [myRank, setMyRank] = useState(null);
   const [loadingLeaderboard, setLoadingLeaderboard] = useState(false);
+  const [lastKeyword, setLastKeyword] = useState(""); // Pour afficher la réponse au game over
 
   const card = deck[currentIndex];
   const keyword = card ? extractKeyword(card.regle) : "";
@@ -175,15 +176,24 @@ export default function Solo() {
       setFeedback("correct");
       setScore((s) => s + pts);
     } else {
+      // Mauvaise réponse : perd 1 vie mais peut continuer à deviner
       setLastPoints(0);
-      setFeedback("incorrect");
+      setAnswer(""); // Vide le champ pour réessayer
       const newLives = lives - 1;
       setLives(newLives);
+      
       if (newLives <= 0) {
+        setLastKeyword(keyword); // Sauvegarde la réponse pour l'afficher au game over
         submitScore(score);
         setPhase("gameover");
         return;
       }
+      
+      // Feedback temporaire "wrong" qui disparaît après 1 seconde
+      setFeedback("wrong");
+      setTimeout(() => {
+        setFeedback((f) => f === "wrong" ? null : f);
+      }, 1000);
     }
   };
 
@@ -205,6 +215,7 @@ export default function Solo() {
     const newLives = lives - 1;
     setLives(newLives);
     if (newLives <= 0) {
+      setLastKeyword(keyword);
       submitScore(score);
       setPhase("gameover");
     }
@@ -347,6 +358,13 @@ export default function Solo() {
       <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-6">
         <h1 className="text-3xl font-bold">Game Over</h1>
         
+        {lastKeyword && (
+          <div className="text-center bg-red-500/20 border border-red-500 rounded-xl p-3 w-full max-w-sm">
+            <p className="text-neutral-400 text-sm">La réponse était :</p>
+            <p className="text-white font-bold text-lg">{lastKeyword}</p>
+          </div>
+        )}
+        
         <div className="text-center space-y-2">
           <p className="text-neutral-400">Score de {pseudo}</p>
           <p className="text-5xl font-bold text-[var(--accent)]">{score}</p>
@@ -443,8 +461,15 @@ export default function Solo() {
       </div>
 
       {/* Zone de réponse */}
-      {feedback === null ? (
+      {feedback === null || feedback === "wrong" ? (
         <div className="flex-shrink-0 space-y-2">
+          {/* Indicateur de mauvaise réponse */}
+          {feedback === "wrong" && (
+            <div className="bg-red-500/20 border border-red-500 rounded-lg py-2 px-3 text-center">
+              <p className="text-red-400 font-medium text-sm">Raté ! Réessaie... (−1 ❤️)</p>
+            </div>
+          )}
+
           <div className="flex gap-2 items-center">
             <button
               type="button"
@@ -466,7 +491,11 @@ export default function Solo() {
               onChange={(e) => setAnswer(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && checkAnswer()}
               placeholder="Ta réponse..."
-              className="flex-1 py-2.5 px-3 rounded-lg bg-[var(--card)] border border-neutral-600 text-white placeholder-neutral-500 focus:border-[var(--accent)] focus:outline-none"
+              className={`flex-1 py-2.5 px-3 rounded-lg bg-[var(--card)] border text-white placeholder-neutral-500 focus:outline-none transition ${
+                feedback === "wrong" 
+                  ? "border-red-500 focus:border-red-500" 
+                  : "border-neutral-600 focus:border-[var(--accent)]"
+              }`}
             />
             <button
               type="button"
@@ -504,7 +533,7 @@ export default function Solo() {
               </>
             ) : (
               <>
-                <p className="text-red-400 font-bold">{feedback === "gaveup" ? "Passé !" : "Raté !"}</p>
+                <p className="text-red-400 font-bold">Passé !</p>
                 <p className="text-neutral-300 text-sm mt-1">
                   Réponse : <span className="font-bold text-white">{keyword}</span>
                 </p>
