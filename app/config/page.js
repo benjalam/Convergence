@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import LogoHeader from "@/app/components/LogoHeader";
 
 export default function Config() {
   const router = useRouter();
@@ -43,10 +42,11 @@ export default function Config() {
   };
 
   return (
-    <>
-      <LogoHeader />
-      <main className="min-h-screen p-6 pb-24 pt-20 max-w-lg mx-auto">
-        <h1 className="text-2xl font-bold mb-1">Configuration</h1>
+    <main className="min-h-screen p-6 pb-24 max-w-lg mx-auto">
+      <Link href="/" className="text-neutral-400 hover:text-[var(--accent)] transition text-sm mb-6 block">
+        ← Accueil
+      </Link>
+      <h1 className="text-2xl font-bold mb-1">Configuration</h1>
       <p className="text-neutral-400 mb-8">Convergence — Quelque chose qui…</p>
 
       <div className="space-y-8">
@@ -145,7 +145,6 @@ export default function Config() {
           Commencer le match
         </button>
       </div>
-      </main>
-    </>
+    </main>
   );
 }

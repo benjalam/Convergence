@@ -1,12 +1,12 @@
 import Link from "next/link";
-import LogoHeader from "@/app/components/LogoHeader";
 
 export default function Regles() {
   return (
-    <>
-      <LogoHeader />
-      <main className="min-h-screen p-6 pb-24 pt-20 max-w-2xl mx-auto">
-        <h1 className="text-2xl font-bold mb-2">Règles du jeu</h1>
+    <main className="min-h-screen p-6 pb-24 max-w-2xl mx-auto">
+      <Link href="/" className="text-neutral-400 hover:text-[var(--accent)] transition text-sm mb-6 block">
+        ← Accueil
+      </Link>
+      <h1 className="text-2xl font-bold mb-2">Règles du jeu</h1>
       <p className="text-neutral-400 mb-8">
         Convergence — Quelque chose qui…
       </p>
@@ -122,12 +122,11 @@ export default function Regles() {
         </div>
       </section>
 
-        <div className="mt-12">
-          <Link href="/" className="btn-primary text-center block">
-            Retour à l&apos;accueil
-          </Link>
-        </div>
-      </main>
-    </>
+      <div className="mt-12">
+        <Link href="/" className="btn-primary text-center block">
+          Retour à l&apos;accueil
+        </Link>
+      </div>
+    </main>
   );
 }

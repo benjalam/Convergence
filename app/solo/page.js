@@ -5,7 +5,6 @@ import Link from "next/link";
 import dataMotData from "@/data/datamot.json";
 import dataCineData from "@/data/datacine.json";
 import dataSportData from "@/data/datasport.json";
-import LogoHeader from "@/app/components/LogoHeader";
 
 function shuffle(arr) {
   const a = [...arr];
@@ -119,7 +118,7 @@ export default function Solo() {
   const [lastPoints, setLastPoints] = useState(0); // Points gagnés sur la dernière carte
   const [deck, setDeck] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [revealedCount, setRevealedCount] = useState(0);
+  const [revealedCount, setRevealedCount] = useState(1);
   const [answer, setAnswer] = useState("");
   const [feedback, setFeedback] = useState(null); // null, "correct", "incorrect", "gaveup", "wrong"
   const [score, setScore] = useState(0);
@@ -205,7 +204,7 @@ export default function Solo() {
     const modeData = GAME_MODES[gameMode].data;
     setDeck(shuffle(modeData));
     setCurrentIndex(0);
-    setRevealedCount(0);
+    setRevealedCount(1);
     setAnswer("");
     setFeedback(null);
     setLives(MAX_LIVES);
@@ -259,7 +258,7 @@ export default function Solo() {
   };
 
   const nextCard = () => {
-    setRevealedCount(0);
+    setRevealedCount(1);
     setAnswer("");
     setFeedback(null);
     setLastPoints(0);
@@ -291,10 +290,11 @@ export default function Solo() {
   // Écran de configuration
   if (phase === "config") {
     return (
-      <>
-        <LogoHeader />
-        <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-5">
-          <div className="text-center space-y-2">
+      <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-5">
+        <Link href="/" className="absolute top-4 left-4 text-neutral-400 hover:text-[var(--accent)] transition text-sm">
+          ← Accueil
+        </Link>
+        <div className="text-center space-y-2">
           <h1 className="text-2xl font-bold">Mode Solo</h1>
           <p className="text-neutral-400">Trouve un maximum de règles !</p>
         </div>
@@ -368,24 +368,21 @@ export default function Solo() {
             🏆 Classement mondial
           </button>
         </div>
-        </main>
-      </>
+      </main>
     );
   }
 
   // Écran du leaderboard
   if (phase === "leaderboard") {
     return (
-      <>
-        <LogoHeader />
-        <main className="min-h-screen p-6 pt-20 flex flex-col items-center gap-4">
-          <div className="w-full max-w-sm flex items-center justify-end">
-            <button
-              onClick={() => setPhase("config")}
-              className="text-neutral-400 hover:text-[var(--accent)] transition text-sm"
-            >
-              ← Retour
-            </button>
+      <main className="min-h-screen p-6 flex flex-col items-center gap-4">
+        <div className="w-full max-w-sm flex items-center justify-between">
+          <button
+            onClick={() => setPhase("config")}
+            className="text-neutral-400 hover:text-[var(--accent)] transition text-sm"
+          >
+            ← Retour
+          </button>
           <button
             onClick={() => fetchLeaderboard(leaderboardMode)}
             className="text-neutral-400 hover:text-[var(--accent)] transition text-sm"
@@ -450,15 +447,14 @@ export default function Solo() {
           </ul>
         )}
 
-          <button
-            type="button"
-            onClick={() => setPhase("config")}
-            className="btn-primary w-full max-w-sm mt-4"
-          >
-            Jouer
-          </button>
-        </main>
-      </>
+        <button
+          type="button"
+          onClick={() => setPhase("config")}
+          className="btn-primary w-full max-w-sm mt-4"
+        >
+          Jouer
+        </button>
+      </main>
     );
   }
 
@@ -466,10 +462,8 @@ export default function Solo() {
   if (phase === "gameover") {
     const isNewBest = score >= bestScore && score > 0;
     return (
-      <>
-        <LogoHeader />
-        <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-6">
-          <h1 className="text-3xl font-bold">Game Over</h1>
+      <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-6">
+        <h1 className="text-3xl font-bold">Game Over</h1>
         
         {lastKeyword && (
           <div className="text-center bg-red-500/20 border border-red-500 rounded-xl p-3 w-full max-w-sm">
@@ -521,29 +515,23 @@ export default function Solo() {
             Accueil
           </Link>
         </div>
-        </main>
-      </>
+      </main>
     );
   }
 
   // Écran de jeu
   if (!card) {
     return (
-      <>
-        <LogoHeader />
-        <main className="min-h-screen flex items-center justify-center">
-          <p className="text-neutral-400">Chargement…</p>
-        </main>
-      </>
+      <main className="min-h-screen flex items-center justify-center">
+        <p className="text-neutral-400">Chargement…</p>
+      </main>
     );
   }
 
   return (
-    <>
-      <LogoHeader />
-      <main className="h-[100dvh] p-3 pb-4 flex flex-col overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center justify-between gap-2 mb-2 pt-14">
+    <main className="h-[100dvh] p-3 pb-4 flex flex-col overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center justify-between gap-2 mb-2">
         <div>
           <p className="text-lg font-bold">
             {"❤️".repeat(lives)}
@@ -691,7 +679,6 @@ export default function Solo() {
           </button>
         </div>
       )}
-      </main>
-    </>
+    </main>
   );
 }
