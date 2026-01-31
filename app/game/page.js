@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import cartesData from "@/data/datamot.json";
+import LogoHeader from "@/app/components/LogoHeader";
 
 const POINTS = [15, 12, 10, 8, 6, 4, 2, 1];
 
@@ -149,38 +150,44 @@ export default function Game() {
 
   if (!config) {
     return (
-      <main className="min-h-screen flex items-center justify-center">
-        <p className="text-neutral-400">Chargement…</p>
-      </main>
+      <>
+        <LogoHeader />
+        <main className="min-h-screen flex items-center justify-center">
+          <p className="text-neutral-400">Chargement…</p>
+        </main>
+      </>
     );
   }
 
   if (phase === "turnSummary") {
     return (
-      <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-6">
-        <h1 className="text-2xl font-bold">Fin du tour</h1>
-        <p className="text-neutral-400">{currentTeamName}</p>
-        <p className="text-3xl font-bold text-[var(--accent)]">
-          +{turnScore} pts ce tour
-        </p>
-        <div className="flex flex-col gap-3 w-full max-w-sm mt-4">
-          {gameOver && (
-            <button onClick={() => setPhase("finalRanking")} className="btn-primary">
-              Voir le classement final
-            </button>
-          )}
-          {roundOverMoreRounds && (
-            <button onClick={passToNextTeam} className="btn-primary">
-              Round suivant
-            </button>
-          )}
-          {!gameOver && !roundOverMoreRounds && (
-            <button onClick={passToNextTeam} className="btn-primary">
-              Passer à l&apos;équipe suivante
-            </button>
-          )}
-        </div>
-      </main>
+      <>
+        <LogoHeader />
+        <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-6">
+          <h1 className="text-2xl font-bold">Fin du tour</h1>
+          <p className="text-neutral-400">{currentTeamName}</p>
+          <p className="text-3xl font-bold text-[var(--accent)]">
+            +{turnScore} pts ce tour
+          </p>
+          <div className="flex flex-col gap-3 w-full max-w-sm mt-4">
+            {gameOver && (
+              <button onClick={() => setPhase("finalRanking")} className="btn-primary">
+                Voir le classement final
+              </button>
+            )}
+            {roundOverMoreRounds && (
+              <button onClick={passToNextTeam} className="btn-primary">
+                Round suivant
+              </button>
+            )}
+            {!gameOver && !roundOverMoreRounds && (
+              <button onClick={passToNextTeam} className="btn-primary">
+                Passer à l&apos;équipe suivante
+              </button>
+            )}
+          </div>
+        </main>
+      </>
     );
   }
 
@@ -189,32 +196,37 @@ export default function Game() {
       .map((s, i) => ({ name: teamNames[i] ?? `Équipe ${i + 1}`, score: s }))
       .sort((a, b) => b.score - a.score);
     return (
-      <main className="min-h-screen p-6 flex flex-col items-center gap-8">
-        <h1 className="text-2xl font-bold">Classement final</h1>
-        <ul className="w-full max-w-sm space-y-3">
-          {ordered.map((t, i) => (
-            <li
-              key={i}
-              className="flex justify-between items-center py-3 px-4 rounded-xl bg-[var(--card)] border border-neutral-700"
-            >
-              <span>
-                {i + 1}. {t.name}
-              </span>
-              <span className="font-bold text-[var(--accent)]">{t.score} pts</span>
-            </li>
-          ))}
-        </ul>
-        <Link href="/" className="btn-primary text-center block w-full max-w-sm">
-          Retour à l&apos;accueil
-        </Link>
-      </main>
+      <>
+        <LogoHeader />
+        <main className="min-h-screen p-6 flex flex-col items-center gap-8">
+          <h1 className="text-2xl font-bold">Classement final</h1>
+          <ul className="w-full max-w-sm space-y-3">
+            {ordered.map((t, i) => (
+              <li
+                key={i}
+                className="flex justify-between items-center py-3 px-4 rounded-xl bg-[var(--card)] border border-neutral-700"
+              >
+                <span>
+                  {i + 1}. {t.name}
+                </span>
+                <span className="font-bold text-[var(--accent)]">{t.score} pts</span>
+              </li>
+            ))}
+          </ul>
+          <Link href="/" className="btn-primary text-center block w-full max-w-sm">
+            Retour à l&apos;accueil
+          </Link>
+        </main>
+      </>
     );
   }
 
   return (
-    <main className="h-[100dvh] p-3 pb-4 flex flex-col overflow-hidden">
-      <div className="flex items-center justify-between gap-2 mb-2">
-        <span className="text-2xl font-mono font-bold tabular-nums text-[var(--accent)]">
+    <>
+      <LogoHeader />
+      <main className="h-[100dvh] p-3 pb-4 flex flex-col overflow-hidden">
+        <div className="flex items-center justify-between gap-2 mb-2 pt-14">
+          <span className="text-2xl font-mono font-bold tabular-nums text-[var(--accent)]">
           {formatTime(timerSeconds)}
         </span>
         <div className="text-right">
@@ -282,6 +294,7 @@ export default function Game() {
           </div>
         </>
       )}
-    </main>
+      </main>
+    </>
   );
 }

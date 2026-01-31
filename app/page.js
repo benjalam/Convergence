@@ -130,12 +130,6 @@ export default function Home() {
           >
             Règles du jeu
           </Link>
-          <Link
-            href="/admin"
-            className="text-center block text-sm text-neutral-500 hover:text-neutral-300 transition mt-4"
-          >
-            🛠️ Administration
-          </Link>
         </div>
       </main>
 

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import LogoHeader from "@/app/components/LogoHeader";
 
 const THEMES = [
   { id: "classique", name: "Classique", emoji: "📝" },
@@ -164,23 +165,17 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
-          <div>
+    <>
+      <LogoHeader />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white p-4 md:p-8 pt-20">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
               🛠️ Back Office
             </h1>
             <p className="text-gray-400 mt-1">Gérer les données du jeu</p>
           </div>
-          <Link
-            href="/"
-            className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition text-center"
-          >
-            ← Retour au jeu
-          </Link>
-        </div>
 
         {/* Avertissement mode production / confirmation mode local */}
         {!isLocal ? (
@@ -477,8 +472,9 @@ export default function AdminPage() {
               </div>
             )}
           </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
