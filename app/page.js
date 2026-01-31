@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 // Composant Logo animé - Style yin-yang comme sur le dessin
-function ConvergenceLogo({ animate = false, size = 120 }) {
+function ConvergenceLogo({ animate = false, size = 120, id = "main" }) {
+  const gradientId = `gradient-arc-${id}`;
+  
   return (
     <svg
       width={size}
@@ -12,13 +14,21 @@ function ConvergenceLogo({ animate = false, size = 120 }) {
       viewBox="0 0 100 130"
       className="overflow-visible"
     >
+      {/* Gradients - définis en premier */}
+      <defs>
+        <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#f97316" />
+          <stop offset="50%" stopColor="#fb923c" />
+          <stop offset="100%" stopColor="#f97316" />
+        </linearGradient>
+      </defs>
+
       {/* Arc du haut - forme de C ouvert vers la droite, en haut à gauche */}
       <g className={animate ? "animate-converge-top" : ""}>
         <path
-          d="M 35 10 
-             C 10 10, 10 55, 35 55"
+          d="M 35 10 C 10 10, 10 55, 35 55"
           fill="none"
-          stroke="url(#gradient-arc)"
+          stroke={`url(#${gradientId})`}
           strokeWidth="5"
           strokeLinecap="round"
         />
@@ -27,31 +37,21 @@ function ConvergenceLogo({ animate = false, size = 120 }) {
       {/* Arc du bas - forme de C ouvert vers la gauche, en bas à droite */}
       <g className={animate ? "animate-converge-bottom" : ""}>
         <path
-          d="M 65 75 
-             C 90 75, 90 120, 65 120"
+          d="M 65 75 C 90 75, 90 120, 65 120"
           fill="none"
-          stroke="url(#gradient-arc)"
+          stroke={`url(#${gradientId})`}
           strokeWidth="5"
           strokeLinecap="round"
         />
       </g>
 
       {/* Pointillés centraux verticaux - entre les deux arcs */}
-      <g className={animate ? "animate-dots-appear" : ""}>
-        <circle cx="50" cy="45" r="3.5" fill="#f97316" className="opacity-90" />
-        <circle cx="50" cy="58" r="3.5" fill="#f97316" className="opacity-90" />
-        <circle cx="50" cy="71" r="3.5" fill="#f97316" className="opacity-90" />
-        <circle cx="50" cy="84" r="3.5" fill="#f97316" className="opacity-90" />
+      <g className={animate ? "animate-dots-appear" : "opacity-90"}>
+        <circle cx="50" cy="45" r="3.5" fill="#f97316" />
+        <circle cx="50" cy="58" r="3.5" fill="#f97316" />
+        <circle cx="50" cy="71" r="3.5" fill="#f97316" />
+        <circle cx="50" cy="84" r="3.5" fill="#f97316" />
       </g>
-
-      {/* Gradients */}
-      <defs>
-        <linearGradient id="gradient-arc" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#f97316" />
-          <stop offset="50%" stopColor="#fb923c" />
-          <stop offset="100%" stopColor="#f97316" />
-        </linearGradient>
-      </defs>
     </svg>
   );
 }
@@ -96,7 +96,7 @@ export default function Home() {
           }`}
         >
           <div className="flex flex-col items-center gap-4">
-            <ConvergenceLogo animate={true} size={120} />
+            <ConvergenceLogo animate={true} size={120} id="splash" />
             <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 bg-clip-text text-transparent animate-title-appear">
               Convergence
             </h1>
@@ -196,17 +196,17 @@ export default function Home() {
         }
 
         .animate-converge-top {
-          animation: converge-top 1.2s ease-out forwards;
+          animation: converge-top 1.2s ease-out both;
           transform-origin: center center;
         }
 
         .animate-converge-bottom {
-          animation: converge-bottom 1.2s ease-out forwards;
+          animation: converge-bottom 1.2s ease-out both;
           transform-origin: center center;
         }
 
         .animate-dots-appear {
-          animation: dots-appear 1.6s ease-out forwards;
+          animation: dots-appear 1.6s ease-out both;
           transform-origin: center center;
         }
 
