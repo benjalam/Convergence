@@ -9,7 +9,7 @@ export default function Config() {
   const [numTeams, setNumTeams] = useState(2);
   const [teamNames, setTeamNames] = useState(["Équipe 1", "Équipe 2"]);
   const [numRounds, setNumRounds] = useState(2);
-   const [turnDuration, setTurnDuration] = useState(120); // en secondes
+  const [turnDuration, setTurnDuration] = useState(120);
 
   const updateTeams = (n) => {
     const next = Math.min(4, Math.max(2, n));
@@ -42,108 +42,128 @@ export default function Config() {
   };
 
   return (
-    <main className="min-h-screen p-6 pb-24 max-w-lg mx-auto">
-      <Link href="/" className="text-neutral-400 hover:text-[var(--accent)] transition text-sm mb-6 block">
+    <main className="min-h-screen p-6 pb-24 flex flex-col items-center">
+      <Link href="/" className="absolute top-4 left-4 stat-bubble text-sm">
         ← Accueil
       </Link>
-      <h1 className="text-2xl font-bold mb-1">Configuration</h1>
-      <p className="text-neutral-400 mb-8">Convergence — Quelque chose qui…</p>
 
-      <div className="space-y-8">
-        <div>
-          <label className="block text-sm font-medium text-neutral-400 mb-2">
-            Nombre d&apos;équipes (2 à 4)
-          </label>
-          <div className="flex gap-2">
-            {[2, 3, 4].map((n) => (
-              <button
-                key={n}
-                type="button"
-                onClick={() => updateTeams(n)}
-                className={`flex-1 py-3 rounded-xl font-medium transition touch-manipulation ${
-                  numTeams === n
-                    ? "bg-[var(--accent)] text-black"
-                    : "bg-[var(--card)] border border-neutral-600 text-neutral-300 hover:border-[var(--accent)]"
-                }`}
-              >
-                {n}
-              </button>
-            ))}
+      <div className="w-full max-w-md mt-12">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-black text-white uppercase title-shadow">👥 Mode Équipes</h1>
+          <p className="text-white/70 mt-2">Configure ta partie</p>
+        </div>
+
+        <div className="game-card">
+          <div className="space-y-6">
+            {/* Nombre d'équipes */}
+            <div>
+              <label className="block text-sm font-bold text-gray-600 mb-3 uppercase tracking-wide">
+                Nombre d&apos;équipes
+              </label>
+              <div className="flex gap-2">
+                {[2, 3, 4].map((n) => (
+                  <button
+                    key={n}
+                    type="button"
+                    onClick={() => updateTeams(n)}
+                    className={`flex-1 py-3 rounded-xl font-bold text-lg transition ${
+                      numTeams === n
+                        ? "bg-[var(--accent)] text-white scale-105 shadow-lg"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                    style={{
+                      borderBottom: numTeams === n ? "4px solid var(--accent-dark)" : "4px solid #e5e7eb"
+                    }}
+                  >
+                    {n}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Noms des équipes */}
+            <div>
+              <label className="block text-sm font-bold text-gray-600 mb-3 uppercase tracking-wide">
+                Noms des équipes
+              </label>
+              <div className="space-y-2">
+                {teamNames.slice(0, numTeams).map((name, i) => (
+                  <input
+                    key={i}
+                    type="text"
+                    value={name}
+                    onChange={(e) => setTeamName(i, e.target.value)}
+                    placeholder={`Équipe ${i + 1}`}
+                    className="input-party"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Nombre de tours */}
+            <div>
+              <label className="block text-sm font-bold text-gray-600 mb-3 uppercase tracking-wide">
+                Nombre de tours
+              </label>
+              <div className="flex gap-2">
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <button
+                    key={n}
+                    type="button"
+                    onClick={() => setNumRounds(n)}
+                    className={`flex-1 py-3 rounded-xl font-bold transition ${
+                      numRounds === n
+                        ? "bg-[var(--accent)] text-white"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                    style={{
+                      borderBottom: numRounds === n ? "4px solid var(--accent-dark)" : "4px solid #e5e7eb"
+                    }}
+                  >
+                    {n}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Durée d'un tour */}
+            <div>
+              <label className="block text-sm font-bold text-gray-600 mb-3 uppercase tracking-wide">
+                Durée d&apos;un tour
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { label: "30s", value: 30, icon: "⚡" },
+                  { label: "1 min", value: 60, icon: "🏃" },
+                  { label: "2 min", value: 120, icon: "⏱️" },
+                  { label: "5 min", value: 300, icon: "🐢" },
+                ].map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setTurnDuration(opt.value)}
+                    className={`py-3 px-3 rounded-xl font-bold transition ${
+                      turnDuration === opt.value
+                        ? "bg-[var(--accent)] text-white"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                    style={{
+                      borderBottom: turnDuration === opt.value ? "4px solid var(--accent-dark)" : "4px solid #e5e7eb"
+                    }}
+                  >
+                    {opt.icon} {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-neutral-400 mb-2">
-            Noms des équipes (optionnel)
-          </label>
-          <div className="space-y-2">
-            {teamNames.slice(0, numTeams).map((name, i) => (
-              <input
-                key={i}
-                type="text"
-                value={name}
-                onChange={(e) => setTeamName(i, e.target.value)}
-                placeholder={`Équipe ${i + 1}`}
-                className="w-full py-3 px-4 rounded-xl bg-[var(--card)] border border-neutral-600 text-white placeholder-neutral-500 focus:border-[var(--accent)] focus:outline-none"
-              />
-            ))}
-          </div>
+        <div className="mt-8">
+          <button onClick={startMatch} className="btn-party w-full">
+            🚀 C&apos;est parti !
+          </button>
         </div>
-
-        <div>
-          <label className="block text-sm font-medium text-neutral-400 mb-2">
-            Nombre de tours
-          </label>
-          <div className="flex gap-2 flex-wrap">
-            {[1, 2, 3, 4, 5].map((n) => (
-              <button
-                key={n}
-                type="button"
-                onClick={() => setNumRounds(n)}
-                className={`flex-1 min-w-[4rem] py-3 rounded-xl font-medium transition touch-manipulation ${
-                  numRounds === n
-                    ? "bg-[var(--accent)] text-black"
-                    : "bg-[var(--card)] border border-neutral-600 text-neutral-300 hover:border-[var(--accent)]"
-                }`}
-              >
-                {n}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-neutral-400 mb-2">
-            Durée d&apos;un tour
-          </label>
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              { label: "30 secondes", value: 30 },
-              { label: "1 minute", value: 60 },
-              { label: "2 minutes", value: 120 },
-              { label: "5 minutes", value: 300 },
-            ].map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                onClick={() => setTurnDuration(opt.value)}
-                className={`py-3 px-3 rounded-xl font-medium transition touch-manipulation ${
-                  turnDuration === opt.value
-                    ? "bg-[var(--accent)] text-black"
-                    : "bg-[var(--card)] border border-neutral-600 text-neutral-300 hover:border-[var(--accent)]"
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-12">
-        <button onClick={startMatch} className="btn-primary w-full">
-          Commencer le match
-        </button>
       </div>
     </main>
   );

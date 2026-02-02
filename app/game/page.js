@@ -16,9 +16,42 @@ function shuffle(arr) {
   return a;
 }
 
-// Construit un deck aléatoire contenant chaque carte exactement une fois
 function buildDeck(cartes) {
   return shuffle(cartes);
+}
+
+// Timer circulaire
+function CircleTimer({ seconds, maxSeconds }) {
+  const radius = 36;
+  const circumference = 2 * Math.PI * radius;
+  const progress = (seconds / maxSeconds) * circumference;
+  const isLow = seconds <= 10;
+  const percentage = Math.round((seconds / maxSeconds) * 100);
+  
+  return (
+    <div className="relative w-20 h-20">
+      <svg className="timer-ring w-full h-full" viewBox="0 0 100 100">
+        <circle 
+          className="timer-ring-bg" 
+          cx="50" cy="50" r={radius} 
+          fill="none" 
+          strokeWidth="8" 
+        />
+        <circle
+          className={`timer-ring-progress ${isLow ? "animate-pulse-danger" : ""}`}
+          cx="50" cy="50" r={radius}
+          fill="none"
+          strokeWidth="8"
+          stroke={isLow ? "#ef4444" : percentage > 50 ? "#22c55e" : "#f59e0b"}
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference - progress}
+        />
+      </svg>
+      <div className={`absolute inset-0 flex items-center justify-center font-black text-lg ${isLow ? "text-red-500" : "text-white"}`}>
+        {Math.floor(seconds / 60)}:{(seconds % 60).toString().padStart(2, "0")}
+      </div>
+    </div>
+  );
 }
 
 export default function Game() {
@@ -32,8 +65,10 @@ export default function Game() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [timerSeconds, setTimerSeconds] = useState(0);
+  const [maxTimerSeconds, setMaxTimerSeconds] = useState(120);
   const [phase, setPhase] = useState("playing");
   const [hasMoreCards, setHasMoreCards] = useState(true);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const numTeams = config?.numTeams ?? 0;
   const teamNames = config?.teamNames ?? [];
@@ -44,6 +79,17 @@ export default function Game() {
   const isLastRound = currentRound === numRounds - 1;
   const gameOver = isLastTeamOfRound && isLastRound;
   const roundOverMoreRounds = isLastTeamOfRound && !isLastRound;
+
+  // Confettis
+  const triggerConfetti = async () => {
+    const confetti = (await import("canvas-confetti")).default;
+    confetti({
+      particleCount: 150,
+      spread: 100,
+      origin: { y: 0.6 },
+      colors: ["#f97316", "#22d3ee", "#6366f1", "#22c55e", "#facc15"],
+    });
+  };
 
   useEffect(() => {
     const raw = localStorage.getItem("convergence_config");
@@ -59,23 +105,21 @@ export default function Game() {
       setDeck(initialDeck);
       setCurrentCardIndex(0);
       setHasMoreCards(initialDeck.length > 0);
-      // Initialise le chrono avec la durée choisie (fallback 120s)
       const duration = typeof c.turnDuration === "number" ? c.turnDuration : 120;
       setTimerSeconds(duration);
+      setMaxTimerSeconds(duration);
     } catch {
       router.replace("/config");
     }
   }, [router]);
 
-  // Passe à la carte suivante sans jamais réutiliser une carte déjà tirée.
-  // Si le deck est épuisé, on marque qu'il n'y a plus de cartes pour cette partie.
   const nextCard = useCallback(() => {
     setSelectedIndex(-1);
     setCurrentCardIndex((i) => {
       const next = i + 1;
       if (!deck || next >= deck.length) {
         setHasMoreCards(false);
-        return i; // on reste sur la dernière carte visible
+        return i;
       }
       return next;
     });
@@ -90,6 +134,7 @@ export default function Game() {
       return n;
     });
     setTurnScore((t) => t + pts);
+    triggerConfetti();
     nextCard();
   };
 
@@ -98,7 +143,6 @@ export default function Game() {
   };
 
   const endTurn = () => {
-    // On considère la carte actuelle comme "utilisée" même si elle n'a pas été trouvée
     nextCard();
     setPhase("turnSummary");
   };
@@ -110,21 +154,17 @@ export default function Game() {
   }, [phase, config, timerSeconds]);
 
   useEffect(() => {
-    // Ne déclenche pas la fin de tour tant que config n'est pas chargé
-    // (évite le bug où timerSeconds=0 au démarrage déclenche immédiatement la fin)
     if (phase !== "playing" || !config || timerSeconds > 0) return;
-    // Le temps est écoulé : la carte courante est également consommée
     nextCard();
     setPhase("turnSummary");
   }, [phase, config, timerSeconds, nextCard]);
 
   const passToNextTeam = () => {
     setTurnScore(0);
-    // Réinitialise le chrono avec la durée configurée (fallback 120s)
     const duration = typeof config?.turnDuration === "number" ? config.turnDuration : 120;
     setTimerSeconds(duration);
+    setMaxTimerSeconds(duration);
     setSelectedIndex(-1);
-    // Si plus de cartes disponibles, on termine la partie
     if (!hasMoreCards) {
       setPhase("finalRanking");
       return;
@@ -141,42 +181,40 @@ export default function Game() {
     setPhase("playing");
   };
 
-  const formatTime = (s) => {
-    const m = Math.floor(s / 60);
-    const s2 = s % 60;
-    return `${m}:${s2.toString().padStart(2, "0")}`;
-  };
-
   if (!config) {
     return (
       <main className="min-h-screen flex items-center justify-center">
-        <p className="text-neutral-400">Chargement…</p>
+        <div className="text-white text-xl font-bold animate-pulse">Chargement...</div>
       </main>
     );
   }
 
+  // Turn Summary
   if (phase === "turnSummary") {
     return (
       <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-6">
-        <h1 className="text-2xl font-bold">Fin du tour</h1>
-        <p className="text-neutral-400">{currentTeamName}</p>
-        <p className="text-3xl font-bold text-[var(--accent)]">
-          +{turnScore} pts ce tour
-        </p>
-        <div className="flex flex-col gap-3 w-full max-w-sm mt-4">
+        <h1 className="text-4xl font-black text-white uppercase title-shadow">Fin du tour !</h1>
+        
+        <div className="game-card w-full max-w-sm text-center">
+          <p className="text-gray-500 uppercase tracking-wide text-sm">{currentTeamName}</p>
+          <p className="text-5xl font-black text-[var(--accent)] my-3">+{turnScore}</p>
+          <p className="text-gray-600">points ce tour</p>
+        </div>
+
+        <div className="flex flex-col gap-3 w-full max-w-sm">
           {gameOver && (
-            <button onClick={() => setPhase("finalRanking")} className="btn-primary">
-              Voir le classement final
+            <button onClick={() => setPhase("finalRanking")} className="btn-party">
+              🏆 Voir le classement final
             </button>
           )}
           {roundOverMoreRounds && (
-            <button onClick={passToNextTeam} className="btn-primary">
-              Round suivant
+            <button onClick={passToNextTeam} className="btn-party">
+              ➡️ Round suivant
             </button>
           )}
           {!gameOver && !roundOverMoreRounds && (
-            <button onClick={passToNextTeam} className="btn-primary">
-              Passer à l&apos;équipe suivante
+            <button onClick={passToNextTeam} className="btn-party">
+              ➡️ Équipe suivante
             </button>
           )}
         </div>
@@ -184,98 +222,134 @@ export default function Game() {
     );
   }
 
+  // Final Ranking
   if (phase === "finalRanking") {
     const ordered = scores
       .map((s, i) => ({ name: teamNames[i] ?? `Équipe ${i + 1}`, score: s }))
       .sort((a, b) => b.score - a.score);
+
+    // Trigger confetti on mount
+    useEffect(() => {
+      triggerConfetti();
+    }, []);
+
     return (
-      <main className="min-h-screen p-6 flex flex-col items-center gap-8">
-        <h1 className="text-2xl font-bold">Classement final</h1>
-        <ul className="w-full max-w-sm space-y-3">
-          {ordered.map((t, i) => (
-            <li
-              key={i}
-              className="flex justify-between items-center py-3 px-4 rounded-xl bg-[var(--card)] border border-neutral-700"
-            >
-              <span>
-                {i + 1}. {t.name}
-              </span>
-              <span className="font-bold text-[var(--accent)]">{t.score} pts</span>
-            </li>
-          ))}
-        </ul>
-        <Link href="/" className="btn-primary text-center block w-full max-w-sm">
-          Retour à l&apos;accueil
+      <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-6">
+        <h1 className="text-4xl font-black text-white uppercase title-shadow animate-victory">
+          🏆 Classement Final
+        </h1>
+        
+        <div className="game-card w-full max-w-sm">
+          <div className="space-y-3">
+            {ordered.map((t, i) => (
+              <div
+                key={i}
+                className={`flex items-center justify-between py-4 px-4 rounded-xl ${
+                  i === 0 ? "bg-yellow-100 border-2 border-yellow-400" :
+                  i === 1 ? "bg-gray-100 border-2 border-gray-300" :
+                  i === 2 ? "bg-orange-100 border-2 border-orange-300" :
+                  "bg-gray-50"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">
+                    {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `${i + 1}.`}
+                  </span>
+                  <span className="font-bold text-gray-800 text-lg">{t.name}</span>
+                </div>
+                <span className="font-black text-2xl text-[var(--accent)]">{t.score}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Link href="/" className="btn-party text-center max-w-sm">
+          🏠 Retour à l&apos;accueil
         </Link>
       </main>
     );
   }
 
+  // Playing Phase
   return (
-    <main className="h-[100dvh] p-3 pb-4 flex flex-col overflow-hidden">
-      <div className="flex items-center justify-between gap-2 mb-2">
-        <span className="text-2xl font-mono font-bold tabular-nums text-[var(--accent)]">
-          {formatTime(timerSeconds)}
-        </span>
-        <div className="text-right">
-          <p className="text-xs text-neutral-500">
-            Tour {currentRound + 1} / {numRounds} · {currentTeamName}
+    <main className="h-[100dvh] p-4 flex flex-col overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-3">
+        <CircleTimer seconds={timerSeconds} maxSeconds={maxTimerSeconds} />
+        <div className="stat-bubble text-right">
+          <p className="text-xs opacity-70">
+            Tour {currentRound + 1}/{numRounds} · {currentTeamName}
           </p>
-          <p className="text-base font-bold">
-            {scores[currentTeamIndex] ?? 0} pts
-          </p>
+          <p className="text-2xl font-black">{scores[currentTeamIndex] ?? 0} pts</p>
         </div>
       </div>
 
       {card && (
         <>
-          <div className="rounded-xl bg-gradient-to-r from-amber-500/20 to-yellow-500/10 border-2 border-[var(--accent)] p-4 mb-3">
-            <p className="text-xs text-[var(--accent)] font-semibold uppercase tracking-wide mb-1">Règle à deviner</p>
-            <p className="text-xl font-bold text-white">{card.regle}</p>
+          {/* Rule Card */}
+          <div className="game-card mb-3 animate-card-appear">
+            <div className="theme-badge theme-badge-classique">📝 Classique</div>
+            
+            <div className="pt-2">
+              <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Règle à deviner</p>
+              <p className="text-xl font-black text-gray-800">{card.regle}</p>
+            </div>
+
+            <p className="text-xs text-gray-400 mt-3 text-center">
+              👆 Lis les mots jusqu&apos;à ce que ton équipe trouve !
+            </p>
           </div>
 
-          <p className="text-xs text-neutral-400 mb-2 text-center">
-            Lis les mots un par un jusqu'à ce que ton équipe trouve
-          </p>
-
-          <div className="flex-1 overflow-y-auto mb-2">
-            <div className="grid grid-cols-1 gap-1.5">
+          {/* Words List */}
+          <div className="flex-1 overflow-y-auto mb-3">
+            <div className="space-y-2">
               {card.mots.map((mot, i) => (
                 <button
                   key={i}
                   type="button"
                   onClick={() => setSelectedIndex(i)}
-                  className={`py-2.5 px-3 rounded-lg font-medium text-left transition touch-manipulation break-words ${
+                  className={`w-full py-3 px-4 rounded-xl font-bold text-left transition touch-manipulation ${
                     selectedIndex === i
-                      ? "bg-[var(--accent)] text-black"
-                      : "bg-[var(--card)] border border-neutral-600 text-neutral-300 hover:border-neutral-500"
+                      ? "bg-[var(--accent)] text-white scale-[1.02] shadow-lg"
+                      : "bg-white text-gray-700 hover:bg-gray-50"
                   }`}
+                  style={{
+                    borderBottom: selectedIndex === i ? "4px solid var(--accent-dark)" : "4px solid #e5e7eb"
+                  }}
                 >
-                  <span className={`text-xs mr-1.5 ${selectedIndex === i ? "text-black/60" : "text-neutral-500"}`}>
+                  <span className={`text-sm mr-2 ${selectedIndex === i ? "text-white/70" : "text-gray-400"}`}>
                     {i + 1}.
                   </span>
                   {mot}
+                  <span className={`float-right text-sm ${selectedIndex === i ? "text-white/70" : "text-gray-400"}`}>
+                    {POINTS[i]} pts
+                  </span>
                 </button>
               ))}
             </div>
           </div>
 
+          {/* Action Buttons */}
           <div className="flex gap-2 flex-shrink-0">
             <button
               type="button"
               onClick={found}
               disabled={selectedIndex < 0}
-              className="btn-small flex-1 py-2.5 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="btn-party-success flex-1 py-3 text-base disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              Trouvé !
+              ✓ Trouvé !
             </button>
-            <button type="button" onClick={skip} className="btn-small flex-1 py-2.5">
+            <button 
+              type="button" 
+              onClick={skip} 
+              className="btn-party-secondary flex-1 py-3 text-base"
+            >
               Passer
             </button>
             <button
               type="button"
               onClick={endTurn}
-              className="btn-small flex-1 py-2.5 border-amber-500/50 text-amber-400 hover:border-amber-400 hover:bg-amber-500/10"
+              className="btn-party-danger flex-1 py-3 text-base"
             >
               Fin
             </button>

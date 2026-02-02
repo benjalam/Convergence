@@ -2,130 +2,127 @@ import Link from "next/link";
 
 export default function Regles() {
   return (
-    <main className="min-h-screen p-6 pb-24 max-w-2xl mx-auto">
-      <Link href="/" className="text-neutral-400 hover:text-[var(--accent)] transition text-sm mb-6 block">
+    <main className="min-h-screen p-6 pb-24 flex flex-col items-center">
+      <Link href="/" className="absolute top-4 left-4 stat-bubble text-sm">
         ← Accueil
       </Link>
-      <h1 className="text-2xl font-bold mb-2">Règles du jeu</h1>
-      <p className="text-neutral-400 mb-8">
-        Convergence — Quelque chose qui…
-      </p>
 
-      {/* Mode Équipes */}
-      <section className="space-y-6 text-neutral-300 leading-relaxed mb-12">
-        <h2 className="text-xl font-bold text-[var(--accent)]">Mode Équipes</h2>
-        
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-2">Objectif</h3>
-          <p>
-            Faire deviner à ton équipe une <strong>règle</strong> (ex. &quot;Quelque chose qui
-            pique&quot;) en utilisant les <strong>8 mots indices</strong>. Moins tu révèles de
-            mots avant qu&apos;ils trouvent, plus tu marques de points.
-          </p>
+      <div className="w-full max-w-2xl mt-12">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-black text-white uppercase title-shadow">📖 Règles</h1>
+          <p className="text-white/70 mt-2">Comment jouer à Convergence</p>
         </div>
 
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-2">Déroulement</h3>
-          <ul className="list-disc list-inside space-y-2">
-            <li>Un <strong>maître du jeu (MJ)</strong> tient le téléphone et voit la règle + les 8 mots.</li>
-            <li>Il dit les mots à l&apos;oral un par un. L&apos;équipe propose des réponses.</li>
-            <li>Quand l&apos;équipe trouve, le MJ <strong>sélectionne le dernier mot utilisé</strong> (clic sur le mot), puis <strong>Trouvé !</strong> pour valider les points.</li>
-            <li><strong>Passer</strong> : changer de règle sans marquer.</li>
-            <li><strong>Fin du tour</strong> : terminer le tour avant la fin du chrono.</li>
-          </ul>
+        {/* Mode Équipes */}
+        <div className="game-card mb-6">
+          <div className="theme-badge theme-badge-classique">👥 Mode Équipes</div>
+          
+          <div className="pt-4 space-y-4">
+            <div>
+              <h3 className="text-lg font-bold text-gray-800 mb-2">🎯 Objectif</h3>
+              <p className="text-gray-600">
+                Faire deviner une <strong>règle</strong> (ex. &quot;Quelque chose qui pique&quot;) 
+                en utilisant les <strong>8 mots indices</strong>. Moins tu révèles de mots, 
+                plus tu marques de points !
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-gray-800 mb-2">🎮 Déroulement</h3>
+              <ul className="text-gray-600 space-y-2">
+                <li>📱 Un <strong>maître du jeu</strong> tient le téléphone</li>
+                <li>🗣️ Il dit les mots à l&apos;oral, un par un</li>
+                <li>✅ Quand l&apos;équipe trouve, sélectionne le dernier mot utilisé</li>
+                <li>⏭️ <strong>Passer</strong> pour changer de règle sans marquer</li>
+                <li>⏱️ Chaque équipe joue pendant la durée choisie</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-2">Chrono</h3>
-          <p>
-            Chaque équipe joue pendant la durée choisie (30s, 1min, 2min ou 5min).
-            À la fin du temps, on affiche le score du tour puis on passe à l&apos;équipe suivante.
-          </p>
-        </div>
-      </section>
+        {/* Mode Solo */}
+        <div className="game-card mb-6">
+          <div className="theme-badge theme-badge-sport">🎮 Mode Solo</div>
+          
+          <div className="pt-4 space-y-4">
+            <div>
+              <h3 className="text-lg font-bold text-gray-800 mb-2">🎯 Objectif</h3>
+              <p className="text-gray-600">
+                Deviner la règle avec <strong>5 vies</strong>. Chaque erreur = 1 vie perdue.
+                Fais le meilleur score possible !
+              </p>
+            </div>
 
-      {/* Mode Solo */}
-      <section className="space-y-6 text-neutral-300 leading-relaxed mb-12">
-        <h2 className="text-xl font-bold text-[var(--accent)]">Mode Solo</h2>
-        
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-2">Objectif</h3>
-          <p>
-            Deviner la <strong>règle</strong> à partir des mots indices. Tu as <strong>5 vies</strong> pour
-            faire le meilleur score possible. Chaque erreur te coûte une vie !
-          </p>
-        </div>
+            <div>
+              <h3 className="text-lg font-bold text-gray-800 mb-2">🎨 Types de jeu</h3>
+              <div className="space-y-2">
+                <div className="bg-indigo-50 p-3 rounded-xl border-l-4 border-indigo-500">
+                  <strong className="text-indigo-700">📝 Classique</strong>
+                  <p className="text-gray-600 text-sm">Trouve le mot-clé (ex: &quot;brille&quot; pour &quot;Quelque chose qui brille&quot;)</p>
+                </div>
+                <div className="bg-red-50 p-3 rounded-xl border-l-4 border-red-500">
+                  <strong className="text-red-700">🎬 Cinéma</strong>
+                  <p className="text-gray-600 text-sm">Trouve le titre du film (français ou anglais)</p>
+                </div>
+                <div className="bg-orange-50 p-3 rounded-xl border-l-4 border-orange-500">
+                  <strong className="text-orange-700">⚽ Sport</strong>
+                  <p className="text-gray-600 text-sm">Trouve le sport, l&apos;athlète ou l&apos;équipe</p>
+                </div>
+              </div>
+              <p className="text-gray-500 text-xs mt-3">
+                ⭐ Chaque mode a son propre classement mondial !
+              </p>
+            </div>
 
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-2">Types de jeu</h3>
-          <ul className="list-disc list-inside space-y-2">
-            <li><strong>📝 Classique</strong> : Trouve le mot-clé de la règle (ex: &quot;brille&quot; pour &quot;Quelque chose qui brille&quot;).</li>
-            <li><strong>🎬 Cinéma</strong> : Trouve le titre du film à partir des indices. Le titre peut être en <strong>français ou en anglais</strong> (ex: &quot;Inception&quot;, &quot;Le Parrain&quot;). Une tolérance d&apos;erreur est appliquée pour les titres complexes.</li>
-            <li><strong>⚽ Sport</strong> : Trouve le sport, l&apos;athlète ou l&apos;équipe à partir des indices (ex: &quot;Messi&quot;, &quot;Tennis&quot;, &quot;Real Madrid&quot;).</li>
-          </ul>
-          <p className="text-sm text-neutral-500 mt-3">
-            Chaque mode possède son propre <strong>classement mondial</strong> séparé !
-          </p>
-        </div>
-
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-2">Déroulement</h3>
-          <ul className="list-disc list-inside space-y-2">
-            <li>Les 8 mots sont <strong>cachés</strong> au départ.</li>
-            <li>Clique sur <strong>&quot;Révéler&quot;</strong> pour découvrir les mots un par un.</li>
-            <li>Tape ta réponse et valide.</li>
-            <li><strong>Bonne réponse</strong> : tu gagnes des points selon le nombre de mots révélés.</li>
-            <li><strong>Mauvaise réponse</strong> : tu perds 1 vie, mais tu peux continuer.</li>
-            <li><strong>Je passe</strong> : tu abandonnes la carte et perds 1 vie.</li>
-            <li><strong>Game over</strong> quand tu n&apos;as plus de vies !</li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-2">Classement mondial</h3>
-          <p>
-            Entre ton pseudo et tente de battre les autres joueurs ! Ton meilleur score
-            est enregistré dans le <strong>classement mondial</strong>.
-          </p>
-        </div>
-      </section>
-
-      {/* Points */}
-      <section className="space-y-4 text-neutral-300 leading-relaxed">
-        <h2 className="text-xl font-bold text-[var(--accent)]">Barème des points</h2>
-        <p className="text-sm text-neutral-400">Identique pour les deux modes :</p>
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          <div className="bg-[var(--card)] rounded-lg p-3 border border-neutral-700">
-            <span className="text-neutral-400">Mot 1 :</span> <strong className="text-white">15 pts</strong>
-          </div>
-          <div className="bg-[var(--card)] rounded-lg p-3 border border-neutral-700">
-            <span className="text-neutral-400">Mot 2 :</span> <strong className="text-white">12 pts</strong>
-          </div>
-          <div className="bg-[var(--card)] rounded-lg p-3 border border-neutral-700">
-            <span className="text-neutral-400">Mot 3 :</span> <strong className="text-white">10 pts</strong>
-          </div>
-          <div className="bg-[var(--card)] rounded-lg p-3 border border-neutral-700">
-            <span className="text-neutral-400">Mot 4 :</span> <strong className="text-white">8 pts</strong>
-          </div>
-          <div className="bg-[var(--card)] rounded-lg p-3 border border-neutral-700">
-            <span className="text-neutral-400">Mot 5 :</span> <strong className="text-white">6 pts</strong>
-          </div>
-          <div className="bg-[var(--card)] rounded-lg p-3 border border-neutral-700">
-            <span className="text-neutral-400">Mot 6 :</span> <strong className="text-white">4 pts</strong>
-          </div>
-          <div className="bg-[var(--card)] rounded-lg p-3 border border-neutral-700">
-            <span className="text-neutral-400">Mot 7 :</span> <strong className="text-white">2 pts</strong>
-          </div>
-          <div className="bg-[var(--card)] rounded-lg p-3 border border-neutral-700">
-            <span className="text-neutral-400">Mot 8 :</span> <strong className="text-white">1 pt</strong>
+            <div>
+              <h3 className="text-lg font-bold text-gray-800 mb-2">🎮 Déroulement</h3>
+              <ul className="text-gray-600 space-y-2">
+                <li>🔒 Les mots sont cachés au départ</li>
+                <li>👆 Clique pour révéler les mots un par un</li>
+                <li>✏️ Tape ta réponse et valide</li>
+                <li>✅ <strong>Bonne réponse</strong> = points selon les mots révélés</li>
+                <li>❌ <strong>Mauvaise réponse</strong> = -1 vie (tu peux continuer)</li>
+                <li>⏭️ <strong>Je passe</strong> = -1 vie, carte suivante</li>
+              </ul>
+            </div>
           </div>
         </div>
-      </section>
 
-      <div className="mt-12">
-        <Link href="/" className="btn-primary text-center block">
-          Retour à l&apos;accueil
-        </Link>
+        {/* Barème */}
+        <div className="game-card">
+          <div className="theme-badge bg-green-500">💰 Points</div>
+          
+          <div className="pt-4">
+            <h3 className="text-lg font-bold text-gray-800 mb-3">Barème des points</h3>
+            <div className="grid grid-cols-4 gap-2">
+              {[
+                { mot: 1, pts: 15 },
+                { mot: 2, pts: 12 },
+                { mot: 3, pts: 10 },
+                { mot: 4, pts: 8 },
+                { mot: 5, pts: 6 },
+                { mot: 6, pts: 4 },
+                { mot: 7, pts: 2 },
+                { mot: 8, pts: 1 },
+              ].map((item) => (
+                <div 
+                  key={item.mot} 
+                  className="bg-gray-50 rounded-xl p-2 text-center border-b-3"
+                  style={{ borderBottom: "3px solid #e5e7eb" }}
+                >
+                  <p className="text-xs text-gray-400">Mot {item.mot}</p>
+                  <p className="font-black text-[var(--accent)]">{item.pts}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8">
+          <Link href="/" className="btn-party text-center block">
+            🏠 Retour à l&apos;accueil
+          </Link>
+        </div>
       </div>
     </main>
   );
