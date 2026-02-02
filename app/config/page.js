@@ -49,15 +49,16 @@ export default function Config() {
 
       <div className="w-full max-w-md mt-12">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-black text-white uppercase title-shadow">👥 Mode Équipes</h1>
-          <p className="text-white/70 mt-2">Configure ta partie</p>
+          <div className="text-4xl mb-2">👥</div>
+          <h1 className="text-3xl font-black text-gray-800">Mode Équipes</h1>
+          <p className="text-gray-500 mt-1">Configure ta partie</p>
         </div>
 
         <div className="game-card">
           <div className="space-y-6">
             {/* Nombre d'équipes */}
             <div>
-              <label className="block text-sm font-bold text-gray-600 mb-3 uppercase tracking-wide">
+              <label className="block text-sm font-bold text-gray-500 mb-3 uppercase tracking-wide">
                 Nombre d&apos;équipes
               </label>
               <div className="flex gap-2">
@@ -66,14 +67,11 @@ export default function Config() {
                     key={n}
                     type="button"
                     onClick={() => updateTeams(n)}
-                    className={`flex-1 py-3 rounded-xl font-bold text-lg transition ${
+                    className={`flex-1 py-3 rounded-xl font-bold text-lg transition-all ${
                       numTeams === n
-                        ? "bg-[var(--accent)] text-white scale-105 shadow-lg"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-200"
+                        : "bg-gray-100 text-gray-500 hover:bg-gray-200"
                     }`}
-                    style={{
-                      borderBottom: numTeams === n ? "4px solid var(--accent-dark)" : "4px solid #e5e7eb"
-                    }}
                   >
                     {n}
                   </button>
@@ -83,7 +81,7 @@ export default function Config() {
 
             {/* Noms des équipes */}
             <div>
-              <label className="block text-sm font-bold text-gray-600 mb-3 uppercase tracking-wide">
+              <label className="block text-sm font-bold text-gray-500 mb-3 uppercase tracking-wide">
                 Noms des équipes
               </label>
               <div className="space-y-2">
@@ -102,7 +100,7 @@ export default function Config() {
 
             {/* Nombre de tours */}
             <div>
-              <label className="block text-sm font-bold text-gray-600 mb-3 uppercase tracking-wide">
+              <label className="block text-sm font-bold text-gray-500 mb-3 uppercase tracking-wide">
                 Nombre de tours
               </label>
               <div className="flex gap-2">
@@ -111,14 +109,11 @@ export default function Config() {
                     key={n}
                     type="button"
                     onClick={() => setNumRounds(n)}
-                    className={`flex-1 py-3 rounded-xl font-bold transition ${
+                    className={`flex-1 py-3 rounded-xl font-bold transition-all ${
                       numRounds === n
-                        ? "bg-[var(--accent)] text-white"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-200"
+                        : "bg-gray-100 text-gray-500 hover:bg-gray-200"
                     }`}
-                    style={{
-                      borderBottom: numRounds === n ? "4px solid var(--accent-dark)" : "4px solid #e5e7eb"
-                    }}
                   >
                     {n}
                   </button>
@@ -128,7 +123,7 @@ export default function Config() {
 
             {/* Durée d'un tour */}
             <div>
-              <label className="block text-sm font-bold text-gray-600 mb-3 uppercase tracking-wide">
+              <label className="block text-sm font-bold text-gray-500 mb-3 uppercase tracking-wide">
                 Durée d&apos;un tour
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -142,14 +137,11 @@ export default function Config() {
                     key={opt.value}
                     type="button"
                     onClick={() => setTurnDuration(opt.value)}
-                    className={`py-3 px-3 rounded-xl font-bold transition ${
+                    className={`py-3 px-3 rounded-xl font-bold transition-all ${
                       turnDuration === opt.value
-                        ? "bg-[var(--accent)] text-white"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-200"
+                        : "bg-gray-100 text-gray-500 hover:bg-gray-200"
                     }`}
-                    style={{
-                      borderBottom: turnDuration === opt.value ? "4px solid var(--accent-dark)" : "4px solid #e5e7eb"
-                    }}
                   >
                     {opt.icon} {opt.label}
                   </button>

@@ -295,14 +295,15 @@ export default function Solo() {
         </Link>
         
         <div className="text-center space-y-2">
-          <h1 className="text-4xl font-black text-white uppercase title-shadow">🎮 Mode Solo</h1>
-          <p className="text-white/80">Devine le maximum avant de perdre tes vies !</p>
+          <div className="text-4xl mb-1">🎮</div>
+          <h1 className="text-3xl font-black text-gray-800">Mode Solo</h1>
+          <p className="text-gray-500">Devine le maximum avant de perdre tes vies !</p>
         </div>
 
         <div className="game-card w-full max-w-sm">
           <div className="space-y-5">
             <div>
-              <label className="block text-sm font-bold text-gray-600 mb-2 uppercase tracking-wide">
+              <label className="block text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">
                 Ton pseudo
               </label>
               <input
@@ -316,7 +317,7 @@ export default function Solo() {
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-600 mb-3 uppercase tracking-wide">
+              <label className="block text-sm font-bold text-gray-500 mb-3 uppercase tracking-wide">
                 Choisis ton thème
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -326,8 +327,8 @@ export default function Solo() {
                     onClick={() => setGameMode(key)}
                     className={`py-3 px-2 rounded-xl font-bold text-center transition-all ${
                       gameMode === key
-                        ? "bg-[var(--accent)] text-white scale-105 shadow-lg"
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-200 scale-105"
+                        : "bg-gray-100 text-gray-500 hover:bg-gray-200"
                     }`}
                   >
                     <div className="text-2xl mb-1">{mode.emoji}</div>
@@ -339,7 +340,7 @@ export default function Solo() {
 
             <div className="pt-2">
               <p className="text-center text-gray-500 text-sm mb-4">
-                🏆 Meilleur score ({GAME_MODES[gameMode].name}) : <span className="font-bold text-[var(--accent)]">{bestScores[gameMode] || 0}</span>
+                🏆 Meilleur : <span className="font-bold text-indigo-600">{bestScores[gameMode] || 0}</span> pts ({GAME_MODES[gameMode].name})
               </p>
               <button onClick={startGame} className="btn-party w-full">
                 🚀 C&apos;est parti !
@@ -348,7 +349,7 @@ export default function Solo() {
           </div>
         </div>
 
-        <button onClick={showLeaderboard} className="stat-bubble hover:bg-white/30 transition">
+        <button onClick={showLeaderboard} className="stat-bubble hover:shadow-md transition">
           🏆 Classement mondial
         </button>
       </main>
@@ -368,10 +369,10 @@ export default function Solo() {
               <button
                 key={key}
                 onClick={() => { setLeaderboardMode(key); fetchLeaderboard(key); }}
-                className={`px-3 py-1 rounded-full text-sm font-bold transition ${
+                className={`px-3 py-1.5 rounded-full text-sm font-bold transition ${
                   leaderboardMode === key
-                    ? "bg-white text-[var(--accent)]"
-                    : "bg-white/20 text-white hover:bg-white/30"
+                    ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-md"
+                    : "bg-white text-gray-500 hover:bg-gray-100"
                 }`}
               >
                 {mode.emoji}
@@ -380,7 +381,7 @@ export default function Solo() {
           </div>
         </div>
 
-        <h1 className="text-3xl font-black text-white uppercase title-shadow">
+        <h1 className="text-2xl font-black text-gray-800">
           🏆 Classement {GAME_MODES[leaderboardMode].name}
         </h1>
 
@@ -426,7 +427,7 @@ export default function Solo() {
     const isNewBest = score >= bestScore && score > 0;
     return (
       <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-6">
-        <h1 className={`text-5xl font-black text-white uppercase title-shadow ${isNewBest ? "animate-victory" : ""}`}>
+        <h1 className={`text-4xl font-black text-gray-800 ${isNewBest ? "animate-victory" : ""}`}>
           Game Over!
         </h1>
         
@@ -439,9 +440,9 @@ export default function Solo() {
 
         <div className="game-card w-full max-w-sm text-center">
           <p className="text-gray-500 text-sm uppercase tracking-wide">Ton score</p>
-          <p className="text-6xl font-black text-[var(--accent)] my-2">{score}</p>
+          <p className="text-5xl font-black text-indigo-600 my-2">{score}</p>
           {isNewBest && (
-            <p className="text-green-500 font-bold animate-bounce">🎉 Nouveau record !</p>
+            <p className="text-emerald-500 font-bold animate-bounce">🎉 Nouveau record !</p>
           )}
           <p className="text-gray-400 text-sm mt-2">
             Meilleur : {bestScores[gameMode] || score}
@@ -467,7 +468,7 @@ export default function Solo() {
   if (!card) {
     return (
       <main className="min-h-screen flex items-center justify-center">
-        <div className="text-white text-xl font-bold animate-pulse">Chargement...</div>
+        <div className="text-gray-600 text-xl font-bold animate-pulse">Chargement...</div>
       </main>
     );
   }

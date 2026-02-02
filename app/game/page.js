@@ -184,7 +184,7 @@ export default function Game() {
   if (!config) {
     return (
       <main className="min-h-screen flex items-center justify-center">
-        <div className="text-white text-xl font-bold animate-pulse">Chargement...</div>
+        <div className="text-gray-600 text-xl font-bold animate-pulse">Chargement...</div>
       </main>
     );
   }
@@ -193,11 +193,11 @@ export default function Game() {
   if (phase === "turnSummary") {
     return (
       <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-6">
-        <h1 className="text-4xl font-black text-white uppercase title-shadow">Fin du tour !</h1>
+        <h1 className="text-3xl font-black text-gray-800">Fin du tour !</h1>
         
         <div className="game-card w-full max-w-sm text-center">
           <p className="text-gray-500 uppercase tracking-wide text-sm">{currentTeamName}</p>
-          <p className="text-5xl font-black text-[var(--accent)] my-3">+{turnScore}</p>
+          <p className="text-5xl font-black text-indigo-600 my-3">+{turnScore}</p>
           <p className="text-gray-600">points ce tour</p>
         </div>
 
@@ -235,7 +235,7 @@ export default function Game() {
 
     return (
       <main className="min-h-screen p-6 flex flex-col items-center justify-center gap-6">
-        <h1 className="text-4xl font-black text-white uppercase title-shadow animate-victory">
+        <h1 className="text-3xl font-black text-gray-800 animate-victory">
           🏆 Classement Final
         </h1>
         
@@ -245,19 +245,19 @@ export default function Game() {
               <div
                 key={i}
                 className={`flex items-center justify-between py-4 px-4 rounded-xl ${
-                  i === 0 ? "bg-yellow-100 border-2 border-yellow-400" :
-                  i === 1 ? "bg-gray-100 border-2 border-gray-300" :
-                  i === 2 ? "bg-orange-100 border-2 border-orange-300" :
+                  i === 0 ? "bg-amber-50 border-2 border-amber-300" :
+                  i === 1 ? "bg-gray-50 border-2 border-gray-200" :
+                  i === 2 ? "bg-orange-50 border-2 border-orange-200" :
                   "bg-gray-50"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-3xl">
+                  <span className="text-2xl">
                     {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `${i + 1}.`}
                   </span>
-                  <span className="font-bold text-gray-800 text-lg">{t.name}</span>
+                  <span className="font-bold text-gray-800">{t.name}</span>
                 </div>
-                <span className="font-black text-2xl text-[var(--accent)]">{t.score}</span>
+                <span className="font-black text-xl text-indigo-600">{t.score}</span>
               </div>
             ))}
           </div>
@@ -308,14 +308,11 @@ export default function Game() {
                   key={i}
                   type="button"
                   onClick={() => setSelectedIndex(i)}
-                  className={`w-full py-3 px-4 rounded-xl font-bold text-left transition touch-manipulation ${
+                  className={`w-full py-3 px-4 rounded-xl font-bold text-left transition-all touch-manipulation ${
                     selectedIndex === i
-                      ? "bg-[var(--accent)] text-white scale-[1.02] shadow-lg"
-                      : "bg-white text-gray-700 hover:bg-gray-50"
+                      ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white scale-[1.02] shadow-lg shadow-indigo-200"
+                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-100"
                   }`}
-                  style={{
-                    borderBottom: selectedIndex === i ? "4px solid var(--accent-dark)" : "4px solid #e5e7eb"
-                  }}
                 >
                   <span className={`text-sm mr-2 ${selectedIndex === i ? "text-white/70" : "text-gray-400"}`}>
                     {i + 1}.
